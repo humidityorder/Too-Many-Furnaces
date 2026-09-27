@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "betterfurnacesrewoven:copper_forge",
+    "betterfurnacesrewoven:iron_forge",
+    "betterfurnacesrewoven:steel_forge",
+    "betterfurnacesrewoven:gold_forge",
+    "betterfurnacesrewoven:amethyst_forge",
+    "betterfurnacesrewoven:diamond_forge",
+    "betterfurnacesrewoven:platinum_forge",
+    "betterfurnacesrewoven:netherhot_forge",
+    "betterfurnacesrewoven:extreme_forge",
+    "betterfurnacesrewoven:ultimate_forge"
+  ]
+}

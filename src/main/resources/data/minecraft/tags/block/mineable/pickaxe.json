@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "betterfurnacesrewoven:fuel_verifier",
+    "betterfurnacesrewoven:cobblestone_generator",
+    "betterfurnacesrewoven:iron_conductor_block",
+    "betterfurnacesrewoven:gold_conductor_block",
+    "betterfurnacesrewoven:netherhot_conductor_block",
+    "#betterfurnacesrewoven:furnace",
+    "#betterfurnacesrewoven:forge"
+  ]
+}

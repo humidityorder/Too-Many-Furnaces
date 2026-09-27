@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "betterfurnacesrewoven:item/up_xp"
+  }
+}

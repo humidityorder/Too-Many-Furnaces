@@ -1,0 +1,10 @@
+{
+  "parent": "betterfurnacesrewoven:block/furnace_active",
+  "textures": {
+    "top": "betterfurnacesrewoven:block/extreme_top",
+    "side": "betterfurnacesrewoven:block/extreme_side",
+    "front": "betterfurnacesrewoven:block/extreme_front",
+    "overlay": "betterfurnacesrewoven:block/frontactive",
+    "particle": "betterfurnacesrewoven:block/extreme_front"
+  }
+}

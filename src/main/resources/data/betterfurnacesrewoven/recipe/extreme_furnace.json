@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "343",
+    "676"
+  ],
+  "key": {
+    "0": "minecraft:coal_block",
+    "1": "minecraft:ender_eye",
+    "3": "minecraft:end_stone",
+    "4": "betterfurnacesrewoven:netherhot_furnace",
+    "6": "minecraft:nether_bricks",
+    "7": "minecraft:crying_obsidian"
+  },
+  "result": {
+    "id": "betterfurnacesrewoven:extreme_furnace"
+  }
+}

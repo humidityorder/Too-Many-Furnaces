@@ -1,0 +1,4 @@
+# Keep the Gradle wrapper runnable on Linux and macOS checkouts.
+gradlew text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf

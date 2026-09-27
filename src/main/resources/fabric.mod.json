@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "betterfurnacesrewoven",
+  "version": "${version}",
+  "name": "Better Furnaces Rewoven",
+  "description": "A Minecraft 26.2 Fabric reimplementation inspired by Better Furnaces Reforged, featuring tiered furnaces, parallel forges and upgrades.",
+  "authors": [
+    "WorkBuddy"
+  ],
+  "contributors": [
+    "Icaro K. Bomfim (Better Furnaces Reforged)",
+    "TheFrogMC (original Better Furnaces concept)",
+    "Qelifern (Iron Furnaces concept)"
+  ],
+  "contact": {
+    "sources": "https://github.com/Wilyicaro/BetterFurnacesReforged",
+    "issues": "https://github.com/Wilyicaro/BetterFurnacesReforged/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/betterfurnacesrewoven/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.workbuddy.betterfurnaces.BetterFurnacesRewoven"
+    ],
+    "client": [
+      "dev.workbuddy.betterfurnaces.client.BetterFurnacesRewovenClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": ">=0.161.0"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "040"
+  ],
+  "key": {
+    "0": "minecraft:ender_eye",
+    "4": "minecraft:diamond",
+    "1": "minecraft:end_crystal"
+  },
+  "result": {
+    "id": "betterfurnacesrewoven:extreme_upgrade"
+  }
+}

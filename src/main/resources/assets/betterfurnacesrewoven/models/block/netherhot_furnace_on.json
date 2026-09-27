@@ -1,0 +1,10 @@
+{
+  "parent": "betterfurnacesrewoven:block/furnace_active",
+  "textures": {
+    "top": "betterfurnacesrewoven:block/netherhot_top",
+    "side": "betterfurnacesrewoven:block/netherhot_side",
+    "front": "betterfurnacesrewoven:block/netherhot_front",
+    "overlay": "betterfurnacesrewoven:block/frontactive",
+    "particle": "betterfurnacesrewoven:block/netherhot_front"
+  }
+}

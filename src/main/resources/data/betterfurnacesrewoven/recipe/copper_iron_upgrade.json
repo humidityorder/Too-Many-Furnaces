@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "040"
+  ],
+  "key": {
+    "0": "minecraft:iron_ingot",
+    "4": "minecraft:copper_ingot",
+    "1": "minecraft:glass"
+  },
+  "result": {
+    "id": "betterfurnacesrewoven:copper_iron_upgrade"
+  }
+}

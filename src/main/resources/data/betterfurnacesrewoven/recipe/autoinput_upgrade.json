@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "040"
+  ],
+  "key": {
+    "0": "minecraft:iron_ingot",
+    "1": "minecraft:hopper",
+    "4": "minecraft:chest"
+  },
+  "result": {
+    "id": "betterfurnacesrewoven:autoinput_upgrade"
+  }
+}

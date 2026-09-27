@@ -1,0 +1,9 @@
+{
+  "parent": "betterfurnacesrewoven:block/furnace_base",
+  "textures": {
+    "top": "betterfurnacesrewoven:block/amethyst_top",
+    "side": "betterfurnacesrewoven:block/amethyst_side",
+    "front": "betterfurnacesrewoven:block/amethyst_front",
+    "particle": "betterfurnacesrewoven:block/amethyst_front"
+  }
+}

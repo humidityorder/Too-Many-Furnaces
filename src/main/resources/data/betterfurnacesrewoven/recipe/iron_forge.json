@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "020",
+    "010"
+  ],
+  "key": {
+    "0": "minecraft:iron_ingot",
+    "1": "betterfurnacesrewoven:iron_conductor_block",
+    "2": "betterfurnacesrewoven:iron_furnace"
+  },
+  "result": {
+    "id": "betterfurnacesrewoven:iron_forge"
+  }
+}

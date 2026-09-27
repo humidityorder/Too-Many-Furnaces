@@ -1,0 +1,10 @@
+{
+  "parent": "betterfurnacesrewoven:block/forge",
+  "textures": {
+    "particle": "betterfurnacesrewoven:block/amethyst_forge_side",
+    "front": "betterfurnacesrewoven:block/amethyst_forge_front",
+    "side": "betterfurnacesrewoven:block/amethyst_forge_side",
+    "overlayfront": "betterfurnacesrewoven:block/forge_front",
+    "overlayside": "betterfurnacesrewoven:block/forge_side"
+  }
+}

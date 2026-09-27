@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "betterfurnacesrewoven:blocks/steel_furnace",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "betterfurnacesrewoven:steel_furnace"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

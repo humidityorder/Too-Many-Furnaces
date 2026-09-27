@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "betterfurnacesrewoven:blocks/cobblestone_generator",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "betterfurnacesrewoven:cobblestone_generator"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}
