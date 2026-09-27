@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "toomanyfurnaces:block/cobblestone_generator"
+    },
+    "facing=east": {
+      "model": "toomanyfurnaces:block/cobblestone_generator",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "toomanyfurnaces:block/cobblestone_generator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "toomanyfurnaces:block/cobblestone_generator",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "toomanyfurnaces:block/cobblestone_generator",
+      "x": 270
+    },
+    "facing=down": {
+      "model": "toomanyfurnaces:block/cobblestone_generator",
+      "x": 90
+    }
+  }
+}

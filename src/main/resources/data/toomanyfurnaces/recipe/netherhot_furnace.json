@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "000",
+    "040",
+    "000"
+  ],
+  "key": {
+    "0": "minecraft:magma_block",
+    "4": "toomanyfurnaces:platinum_furnace"
+  },
+  "result": {
+    "id": "toomanyfurnaces:netherhot_furnace"
+  }
+}

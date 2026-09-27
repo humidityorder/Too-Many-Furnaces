@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "betterfurnacesrewoven:netherhot_conductor_block",
-    "#betterfurnacesrewoven:tier/extreme",
-    "#betterfurnacesrewoven:tier/ultimate"
+    "toomanyfurnaces:netherhot_conductor_block",
+    "#toomanyfurnaces:tier/extreme",
+    "#toomanyfurnaces:tier/ultimate"
   ]
 }

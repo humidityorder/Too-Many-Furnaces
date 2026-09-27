@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "040"
+  ],
+  "key": {
+    "0": "minecraft:glass",
+    "1": "minecraft:experience_bottle",
+    "4": "minecraft:iron_ingot"
+  },
+  "result": {
+    "id": "toomanyfurnaces:xp_tank_upgrade"
+  }
+}

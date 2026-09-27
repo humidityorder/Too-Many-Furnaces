@@ -1,0 +1,9 @@
+{
+  "parent": "toomanyfurnaces:block/furnace_base",
+  "textures": {
+    "top": "toomanyfurnaces:block/amethyst_top",
+    "side": "toomanyfurnaces:block/amethyst_side",
+    "front": "toomanyfurnaces:block/amethyst_front",
+    "particle": "toomanyfurnaces:block/amethyst_front"
+  }
+}

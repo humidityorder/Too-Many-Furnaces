@@ -1,0 +1,9 @@
+{
+  "parent": "toomanyfurnaces:block/furnace_base",
+  "textures": {
+    "top": "toomanyfurnaces:block/steel_top",
+    "side": "toomanyfurnaces:block/steel_side",
+    "front": "toomanyfurnaces:block/steel_front",
+    "particle": "toomanyfurnaces:block/steel_front"
+  }
+}

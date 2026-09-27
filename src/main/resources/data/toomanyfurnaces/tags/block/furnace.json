@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "toomanyfurnaces:copper_furnace",
+    "toomanyfurnaces:iron_furnace",
+    "toomanyfurnaces:steel_furnace",
+    "toomanyfurnaces:gold_furnace",
+    "toomanyfurnaces:amethyst_furnace",
+    "toomanyfurnaces:diamond_furnace",
+    "toomanyfurnaces:platinum_furnace",
+    "toomanyfurnaces:netherhot_furnace",
+    "toomanyfurnaces:extreme_furnace",
+    "toomanyfurnaces:ultimate_furnace"
+  ]
+}

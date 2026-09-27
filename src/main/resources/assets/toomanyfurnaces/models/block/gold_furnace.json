@@ -1,0 +1,9 @@
+{
+  "parent": "toomanyfurnaces:block/furnace_base",
+  "textures": {
+    "top": "toomanyfurnaces:block/gold_top",
+    "side": "toomanyfurnaces:block/gold_side",
+    "front": "toomanyfurnaces:block/gold_front",
+    "particle": "toomanyfurnaces:block/gold_front"
+  }
+}

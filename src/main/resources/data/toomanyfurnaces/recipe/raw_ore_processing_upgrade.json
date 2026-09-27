@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "040"
+  ],
+  "key": {
+    "0": "minecraft:raw_iron",
+    "1": "minecraft:iron_pickaxe",
+    "4": "toomanyfurnaces:ore_processing_upgrade"
+  },
+  "result": {
+    "id": "toomanyfurnaces:raw_ore_processing_upgrade"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "040"
+  ],
+  "key": {
+    "0": "minecraft:gold_ingot",
+    "4": "minecraft:iron_ingot",
+    "1": "toomanyfurnaces:gold_conductor_block"
+  },
+  "result": {
+    "id": "toomanyfurnaces:gold_upgrade"
+  }
+}

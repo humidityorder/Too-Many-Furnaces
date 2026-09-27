@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
-    "betterfurnacesrewoven:gold_conductor_block",
-    "#betterfurnacesrewoven:tier/gold",
-    "#betterfurnacesrewoven:tier/diamond",
-    "#betterfurnacesrewoven:tier/netherhot",
-    "#betterfurnacesrewoven:tier/amethyst",
-    "#betterfurnacesrewoven:tier/platinum"
+    "toomanyfurnaces:gold_conductor_block",
+    "#toomanyfurnaces:tier/gold",
+    "#toomanyfurnaces:tier/diamond",
+    "#toomanyfurnaces:tier/netherhot",
+    "#toomanyfurnaces:tier/amethyst",
+    "#toomanyfurnaces:tier/platinum"
   ]
 }

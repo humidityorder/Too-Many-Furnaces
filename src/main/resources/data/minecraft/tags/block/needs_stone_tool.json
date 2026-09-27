@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
-    "betterfurnacesrewoven:fuel_verifier",
-    "betterfurnacesrewoven:cobblestone_generator",
-    "betterfurnacesrewoven:iron_conductor_block",
-    "#betterfurnacesrewoven:tier/iron",
-    "#betterfurnacesrewoven:tier/copper",
-    "#betterfurnacesrewoven:tier/steel"
+    "toomanyfurnaces:fuel_verifier",
+    "toomanyfurnaces:cobblestone_generator",
+    "toomanyfurnaces:iron_conductor_block",
+    "#toomanyfurnaces:tier/iron",
+    "#toomanyfurnaces:tier/copper",
+    "#toomanyfurnaces:tier/steel"
   ]
 }

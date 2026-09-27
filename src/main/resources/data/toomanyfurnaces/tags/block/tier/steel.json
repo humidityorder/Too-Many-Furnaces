@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "toomanyfurnaces:steel_furnace",
+    "toomanyfurnaces:steel_forge"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "020",
+    "010"
+  ],
+  "key": {
+    "0": "minecraft:amethyst_block",
+    "1": "toomanyfurnaces:iron_conductor_block",
+    "2": "toomanyfurnaces:amethyst_furnace"
+  },
+  "result": {
+    "id": "toomanyfurnaces:amethyst_forge"
+  }
+}

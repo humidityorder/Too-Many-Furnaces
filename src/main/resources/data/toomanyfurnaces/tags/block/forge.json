@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "toomanyfurnaces:copper_forge",
+    "toomanyfurnaces:iron_forge",
+    "toomanyfurnaces:steel_forge",
+    "toomanyfurnaces:gold_forge",
+    "toomanyfurnaces:amethyst_forge",
+    "toomanyfurnaces:diamond_forge",
+    "toomanyfurnaces:platinum_forge",
+    "toomanyfurnaces:netherhot_forge",
+    "toomanyfurnaces:extreme_forge",
+    "toomanyfurnaces:ultimate_forge"
+  ]
+}

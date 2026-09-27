@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "000",
+    "040",
+    "000"
+  ],
+  "key": {
+    "0": "minecraft:copper_ingot",
+    "4": "minecraft:furnace"
+  },
+  "result": {
+    "id": "toomanyfurnaces:copper_furnace"
+  }
+}

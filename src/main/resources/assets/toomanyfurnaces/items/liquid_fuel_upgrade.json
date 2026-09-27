@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "toomanyfurnaces:item/liquid_fuel_upgrade"
+  }
+}

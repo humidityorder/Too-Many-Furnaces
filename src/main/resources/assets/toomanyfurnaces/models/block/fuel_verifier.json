@@ -1,0 +1,9 @@
+{
+  "parent": "toomanyfurnaces:block/furnace_base",
+  "textures": {
+    "top": "toomanyfurnaces:block/fuel_verifier_side",
+    "side": "toomanyfurnaces:block/fuel_verifier_side",
+    "front": "toomanyfurnaces:block/fuel_verifier_front",
+    "particle": "toomanyfurnaces:block/fuel_verifier_side"
+  }
+}

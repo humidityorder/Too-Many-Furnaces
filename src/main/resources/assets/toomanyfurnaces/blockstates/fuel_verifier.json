@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "toomanyfurnaces:block/fuel_verifier"
+    },
+    "facing=east": {
+      "model": "toomanyfurnaces:block/fuel_verifier",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "toomanyfurnaces:block/fuel_verifier",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "toomanyfurnaces:block/fuel_verifier",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "toomanyfurnaces:block/fuel_verifier",
+      "x": 270
+    },
+    "facing=down": {
+      "model": "toomanyfurnaces:block/fuel_verifier",
+      "x": 90
+    }
+  }
+}

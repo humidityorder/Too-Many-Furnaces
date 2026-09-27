@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "040"
+  ],
+  "key": {
+    "0": "minecraft:copper_ingot",
+    "1": "minecraft:copper_block",
+    "4": "minecraft:cobblestone"
+  },
+  "result": {
+    "id": "toomanyfurnaces:copper_upgrade"
+  }
+}

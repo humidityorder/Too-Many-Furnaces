@@ -16,7 +16,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"betterfurnacesrewoven" {
+		"toomanyfurnaces" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}
@@ -63,7 +63,7 @@ publishing {
 		create("mavenJava", MavenPublication) {
 			from components.java
 			pom {
-				name = "Better Furnaces Rewoven"
+				name = "Too Many Furnaces"
 				description = "A Fabric 26.2 reimplementation inspired by Better Furnaces Reforged."
 				licenses {
 					license {

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "020",
+    "010"
+  ],
+  "key": {
+    "0": "minecraft:copper_ingot",
+    "1": "toomanyfurnaces:iron_conductor_block",
+    "2": "toomanyfurnaces:copper_furnace"
+  },
+  "result": {
+    "id": "toomanyfurnaces:copper_forge"
+  }
+}

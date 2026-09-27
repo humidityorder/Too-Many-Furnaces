@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "141",
+    "010"
+  ],
+  "key": {
+    "0": "minecraft:gold_ingot",
+    "1": "minecraft:iron_bars",
+    "4": "minecraft:iron_ingot"
+  },
+  "result": {
+    "id": "toomanyfurnaces:gold_conductor_block"
+  }
+}

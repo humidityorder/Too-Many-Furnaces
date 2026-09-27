@@ -1,0 +1,10 @@
+{
+  "parent": "toomanyfurnaces:block/forge",
+  "textures": {
+    "particle": "toomanyfurnaces:block/platinum_forge_side",
+    "front": "toomanyfurnaces:block/platinum_forge_front",
+    "side": "toomanyfurnaces:block/platinum_forge_side",
+    "overlayfront": "toomanyfurnaces:block/forge_frontactive",
+    "overlayside": "toomanyfurnaces:block/forge_sideactive"
+  }
+}

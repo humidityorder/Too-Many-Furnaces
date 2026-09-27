@@ -1,9 +1,0 @@
-{
-  "parent": "betterfurnacesrewoven:block/furnace_base",
-  "textures": {
-    "top": "betterfurnacesrewoven:block/fuel_verifier_side",
-    "side": "betterfurnacesrewoven:block/fuel_verifier_side",
-    "front": "betterfurnacesrewoven:block/fuel_verifier_front",
-    "particle": "betterfurnacesrewoven:block/fuel_verifier_side"
-  }
-}

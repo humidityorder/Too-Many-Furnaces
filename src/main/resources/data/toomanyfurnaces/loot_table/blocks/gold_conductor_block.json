@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "toomanyfurnaces:blocks/gold_conductor_block",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "toomanyfurnaces:gold_conductor_block"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "313",
+    "242",
+    "313"
+  ],
+  "key": {
+    "1": "minecraft:dragon_head",
+    "2": "toomanyfurnaces:raw_ore_processing_upgrade",
+    "3": "minecraft:emerald_block",
+    "4": "toomanyfurnaces:advanced_ore_processing_upgrade"
+  },
+  "result": {
+    "id": "toomanyfurnaces:ultimate_ore_processing_upgrade"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "parent": "toomanyfurnaces:block/furnace_active",
+  "textures": {
+    "top": "toomanyfurnaces:block/netherhot_top",
+    "side": "toomanyfurnaces:block/netherhot_side",
+    "front": "toomanyfurnaces:block/netherhot_front",
+    "overlay": "toomanyfurnaces:block/frontactive",
+    "particle": "toomanyfurnaces:block/netherhot_front"
+  }
+}

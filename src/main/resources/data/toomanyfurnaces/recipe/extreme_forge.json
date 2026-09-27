@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "020",
+    "010"
+  ],
+  "key": {
+    "0": "minecraft:netherite_ingot",
+    "1": "toomanyfurnaces:netherhot_conductor_block",
+    "2": "toomanyfurnaces:extreme_furnace"
+  },
+  "result": {
+    "id": "toomanyfurnaces:extreme_forge"
+  }
+}

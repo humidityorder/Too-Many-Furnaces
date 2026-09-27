@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "040"
+  ],
+  "key": {
+    "0": "minecraft:emerald",
+    "4": "minecraft:diamond",
+    "1": "minecraft:netherite_scrap"
+  },
+  "result": {
+    "id": "toomanyfurnaces:platinum_upgrade"
+  }
+}

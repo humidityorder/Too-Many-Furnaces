@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "toomanyfurnaces:block/iron_conductor_block"
+    }
+  }
+}

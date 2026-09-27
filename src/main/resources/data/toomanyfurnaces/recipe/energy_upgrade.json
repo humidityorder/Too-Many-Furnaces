@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "040"
+  ],
+  "key": {
+    "0": "minecraft:redstone_block",
+    "1": "minecraft:lightning_rod",
+    "4": "minecraft:copper_block"
+  },
+  "result": {
+    "id": "toomanyfurnaces:energy_upgrade"
+  }
+}

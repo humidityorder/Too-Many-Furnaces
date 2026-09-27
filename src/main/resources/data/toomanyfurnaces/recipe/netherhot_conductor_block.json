@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    "141",
+    "010"
+  ],
+  "key": {
+    "0": "minecraft:netherite_scrap",
+    "1": "minecraft:iron_bars",
+    "4": "minecraft:gold_ingot"
+  },
+  "result": {
+    "id": "toomanyfurnaces:netherhot_conductor_block"
+  }
+}

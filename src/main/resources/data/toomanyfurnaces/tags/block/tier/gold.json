@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "toomanyfurnaces:gold_furnace",
+    "toomanyfurnaces:gold_forge"
+  ]
+}

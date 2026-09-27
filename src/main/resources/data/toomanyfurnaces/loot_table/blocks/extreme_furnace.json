@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "toomanyfurnaces:blocks/extreme_furnace",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "toomanyfurnaces:extreme_furnace"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}
