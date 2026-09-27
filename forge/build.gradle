@@ -1,0 +1,70 @@
+plugins {
+	id 'java'
+	id 'net.minecraftforge.gradle' version '[7.0.17,8)'
+}
+
+version = project.modVersion
+group = project.maven_group
+
+base {
+	archivesName = "too-many-furnaces-${project.forgeMcVersion}-forge"
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(project.modJavaVersion)
+
+// Forge has a single source set: shared game logic, client screens and the Forge bootstrap all go in.
+sourceSets {
+	main {
+		java {
+			srcDirs = ['../src/main/java', '../src/client/java']
+			exclude 'dev/mytechnology/toomanyfurnaces/TooManyFurnaces.java'
+			exclude '**/client/TooManyFurnacesClient.java'
+			exclude 'dev/mytechnology/toomanyfurnaces/neoforge/**'
+		}
+
+		resources {
+			srcDirs = ['../src/main/resources']
+			exclude 'fabric.mod.json'
+			exclude 'META-INF/neoforge.mods.toml'
+		}
+	}
+}
+
+repositories {
+	minecraft.mavenizer(it)
+	maven fg.forgeMaven
+	maven fg.minecraftLibsMaven
+	mavenCentral()
+}
+
+minecraft {
+	runs {
+		configureEach {
+			workingDir = layout.projectDirectory.dir('run')
+		}
+
+		register('client')
+		register('server')
+	}
+}
+
+dependencies {
+	implementation minecraft.dependency("net.minecraftforge:forge:${project.forgeMcVersion}-${project.forgeVersion}")
+	annotationProcessor "net.minecraftforge:eventbus-validator:${project.forgeEventBusValidatorVersion}"
+}
+
+processResources {
+	def version = project.version
+	def loaderVersion = project.forgeLoaderVersion
+	inputs.property "version", version
+	inputs.property "forgeLoaderVersion", loaderVersion
+
+	filesMatching("META-INF/mods.toml") {
+		expand "version": version, "forgeLoaderVersion": loaderVersion
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.encoding = "UTF-8"
+}

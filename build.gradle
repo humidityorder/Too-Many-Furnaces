@@ -23,6 +23,30 @@ loom {
 	}
 }
 
+// The Forge and NeoForge bootstrap classes live next to the shared sources but must never be
+// compiled into the Fabric jar.
+sourceSets {
+	main {
+		java {
+			exclude 'dev/mytechnology/toomanyfurnaces/forge/**'
+			exclude 'dev/mytechnology/toomanyfurnaces/neoforge/**'
+		}
+	}
+
+	client {
+		java {
+			exclude 'dev/mytechnology/toomanyfurnaces/forge/**'
+			exclude 'dev/mytechnology/toomanyfurnaces/neoforge/**'
+		}
+	}
+}
+
+// The Forge and NeoForge subprojects ship these instead, keep them out of the Fabric jars.
+sourceSets.main.resources.exclude 'META-INF/neoforge.mods.toml'
+sourceSets.main.resources.exclude 'META-INF/mods.toml'
+sourceSets.client.resources.exclude 'META-INF/neoforge.mods.toml'
+sourceSets.client.resources.exclude 'META-INF/mods.toml'
+
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"

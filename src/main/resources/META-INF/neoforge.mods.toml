@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="${neoLoaderVersion}"
+license="MIT"
+issueTrackerURL="https://github.com/Wilyicaro/BetterFurnacesReforged/issues"
+
+[[mods]]
+modId="toomanyfurnaces"
+version="${version}"
+displayName="Too Many Furnaces"
+authors="Mytechnology"
+credits="Inspired by Better Furnaces Reforged (Icaro K. Bomfim), the original Better Furnaces concept by TheFrogMC and the Iron Furnaces concept by Qelifern."
+logoFile="assets/toomanyfurnaces/icon.png"
+description='''
+A Minecraft 26.2 reimplementation inspired by Better Furnaces Reforged, featuring tiered furnaces, parallel forges and upgrades.
+'''
+
+[[dependencies.toomanyfurnaces]]
+modId="neoforge"
+type="required"
+versionRange="[26.2.0.1-beta,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.toomanyfurnaces]]
+modId="minecraft"
+type="required"
+versionRange="[26.2,)"
+ordering="NONE"
+side="BOTH"

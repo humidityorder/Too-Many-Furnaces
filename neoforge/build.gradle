@@ -1,0 +1,68 @@
+plugins {
+	id 'java-library'
+	id 'net.neoforged.moddev' version '2.0.147'
+}
+
+version = project.modVersion
+group = project.maven_group
+
+base {
+	archivesName = "too-many-furnaces-${project.neoMcVersion}-neoforge"
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(project.modJavaVersion)
+
+sourceSets {
+	main {
+		java {
+			// NeoForge ships a single source set, so both shared game code and client screens go in here.
+			srcDirs = ['../src/main/java', '../src/client/java']
+			exclude 'dev/mytechnology/toomanyfurnaces/TooManyFurnaces.java'
+			exclude '**/client/TooManyFurnacesClient.java'
+			exclude 'dev/mytechnology/toomanyfurnaces/forge/**'
+		}
+
+		resources {
+			srcDirs = ['../src/main/resources']
+			exclude 'fabric.mod.json'
+			exclude 'META-INF/mods.toml'
+		}
+	}
+}
+
+processResources {
+	def version = project.version
+	def loaderVersion = project.neoLoaderVersion
+	inputs.property "version", version
+	inputs.property "neoLoaderVersion", loaderVersion
+
+	filesMatching("META-INF/neoforge.mods.toml") {
+		expand "version": version, "neoLoaderVersion": loaderVersion
+	}
+}
+
+neoForge {
+	version = project.neoVersion
+
+	runs {
+		client {
+			client()
+		}
+
+		server {
+			server()
+			programArgument '--nogui'
+		}
+	}
+
+	mods {
+		"toomanyfurnaces" {
+			sourceSet sourceSets.main
+		}
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.encoding = "UTF-8"
+}
