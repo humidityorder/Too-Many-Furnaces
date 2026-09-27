@@ -5,7 +5,7 @@
   "name": "Too Many Furnaces",
   "description": "A Minecraft 26.2 Fabric reimplementation inspired by Better Furnaces Reforged, featuring tiered furnaces, parallel forges and upgrades.",
   "authors": [
-    "WorkBuddy"
+    "Mytechnology"
   ],
   "contributors": [
     "Icaro K. Bomfim (Better Furnaces Reforged)",
@@ -21,10 +21,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.workbuddy.toomanyfurnaces.TooManyFurnaces"
+      "dev.mytechnology.toomanyfurnaces.TooManyFurnaces"
     ],
     "client": [
-      "dev.workbuddy.toomanyfurnaces.client.TooManyFurnacesClient"
+      "dev.mytechnology.toomanyfurnaces.client.TooManyFurnacesClient"
     ]
   },
   "depends": {
