@@ -1,6 +1,6 @@
 # Too Many Furnaces
 
-> Ten tiers of furnaces, ten tiers of three-lane forges and a full upgrade system for Minecraft 26.2.
+> 10 different furnaces, 10 different forges, bringing more excitement to your boring smelting process.
 
 简体中文文档：[README_cn.md](README_cn.md)
 
