@@ -1,86 +1,87 @@
 # Too Many Furnaces
 
-> A Minecraft 26.2 mod with ten tiers of furnaces, ten tiers of three-lane forges and a full upgrade system.
-> 适用于 Minecraft 26.2 的模组：十级熔炉、十级三通道锻造炉，以及完整的升级体系。
+> Ten tiers of furnaces, ten tiers of three-lane forges and a full upgrade system for Minecraft 26.2.
 
-受 [Better Furnaces Reforged](https://github.com/Wilyicaro/BetterFurnacesReforged) 启发，基于未混淆的 Minecraft 26.2 API 重新实现。同时支持 **Fabric**、**Forge** 和 **NeoForge** 三个加载器。
+简体中文文档：[README_cn.md](README_cn.md)
+
+Inspired by [Better Furnaces Reforged](https://github.com/Wilyicaro/BetterFurnacesReforged) and rebuilt from scratch against the unobfuscated Minecraft 26.2 API. Runs on **Fabric**, **Forge** and **NeoForge**.
 
 ---
 
-## 熔炉 Furnaces
+## Furnaces
 
-每档都可以用等级升级原地升到更高档，并支持液态燃料、燃料效率、矿石增产等功能升级。
+Every tier can be upgraded in place to the next one and accepts upgrades such as liquid fuel, fuel efficiency and ore processing.
 
-| 档位 | 烧炼耗时 | 相对原版熔炉 |
+| Tier | Cook time | Compared to a vanilla furnace |
 |---|---|---|
-| 铜熔炉 Copper | 175 tick | 1.14× |
-| 铁熔炉 Iron | 150 tick | 1.33× |
-| 钢熔炉 Steel | 125 tick | 1.60× |
-| 金熔炉 Gold | 100 tick | 2× |
-| 紫水晶熔炉 Amethyst | 75 tick | 2.67× |
-| 钻石熔炉 Diamond | 50 tick | 4× |
-| 铂金熔炉 Platinum | 25 tick | 8× |
-| 下界热熔炉 Netherhot | 8 tick | 25× |
-| 极限熔炉 Extreme | 4 tick | 50× |
-| 终极熔炉 Ultimate | 1 tick | 200× |
+| Copper | 175 ticks | 1.14× |
+| Iron | 150 ticks | 1.33× |
+| Steel | 125 ticks | 1.60× |
+| Gold | 100 ticks | 2× |
+| Amethyst | 75 ticks | 2.67× |
+| Diamond | 50 ticks | 4× |
+| Platinum | 25 ticks | 8× |
+| Netherhot | 8 ticks | 25× |
+| Extreme | 4 ticks | 50× |
+| Ultimate | 1 tick | 200× |
 
-> 原版熔炉为 200 tick，倍速即 200 ÷ 该档耗时。
+> A vanilla furnace takes 200 ticks, so the multiplier is 200 divided by the tier's cook time.
 
-## 锻造炉 Forges
+## Forges
 
-与熔炉一一对应，但**可同时冶炼 3 种不同物品**（三条独立进度、共享燃料、三个独立输出），因此吞吐量是同档熔炉的 3 倍。同样支持全部升级。
+One forge per furnace tier, but each one **smelts three different items at the same time** — three independent progress bars, one shared fuel slot and three separate outputs — giving three times the throughput of the matching furnace. All upgrades work here too.
 
-## 升级 Upgrades
+## Upgrades
 
-手持升级右键熔炉或锻造炉即可装入（机器有 3 个隐藏升级槽）。
+Right click a furnace or forge while holding an upgrade to install it. Every machine has three hidden upgrade slots.
 
-| 升级 | 效果 |
+| Upgrade | Effect |
 |---|---|
-| 燃料效率 / 高级燃料效率 | 燃料燃烧时长 ×2 / 再 ×2 |
-| 矿石处理 / 粗矿处理 | 矿石与矿 block 产出 ×2 / 粗矿 ×2 |
-| 高级 / 终极矿石处理 | 最高 ×4（终极版对矿石与粗矿同时生效） |
-| 高炉 / 烟熏 | 切换为高炉或烟熏炉配方 |
-| 存储 | 各槽位容量翻倍（上限 99） |
-| 自动输入 / 自动输出 | 每 8 tick 与相邻容器交换物品 |
-| 工厂 | 全方向自动输入 + 输出 |
-| 红石控制 | 右键循环三种红石模式 |
-| 液态燃料 | 允许用熔岩桶作燃料，烧完归还空桶 |
-| 等级升级 | 原地升级档位，保留物品栏与已装升级 |
+| Fuel Efficiency / Advanced Fuel Efficiency | Fuel lasts ×2 / another ×2 |
+| Ore Processing / Raw Ore Processing | ×2 output for ores and ore blocks / ×2 for raw ores |
+| Advanced / Ultimate Ore Processing | Up to ×4 (the ultimate version covers ores and raw ores alike) |
+| Blasting / Smoking | Switches the machine to blast furnace or smoker recipes |
+| Storage | Doubles every slot's capacity, up to 99 items |
+| Auto Input / Auto Output | Exchanges items with adjacent inventories every 8 ticks |
+| Factory | Auto input and auto output on every side |
+| Redstone Signal | Right click to cycle through three redstone modes |
+| Liquid Fuel | Allows lava buckets as fuel and returns the empty bucket |
+| Tier Upgrade | Upgrades the machine in place, keeping its inventory and upgrades |
 
-**尚未实装（占位）**：能源、液态经验罐、发电机、染色、管道。它们可以合成，但装上去没有实际效果，物品提示中已明确标注。
+**Not implemented yet (placeholders):** Energy, XP Tank, Generator, Color and Piping. They can be crafted but have no effect, and their tooltips say so.
 
-## 其它方块
+## Other blocks
 
-- **导体方块**（铁 / 金 / 下界热）：锻造炉的合成材料
-- **圆石生成器**：消耗岩浆与水，持续产出圆石
-- **燃料检测器**：查看燃料可烧炼多少物品
+- **Conductor blocks** (iron / gold / netherhot): crafting ingredients for forges
+- **Cobblestone Generator**: consumes lava and water to produce cobblestone
+- **Fuel Verifier**: shows how many items a fuel can smelt
 
-## 性能
+## Performance
 
-- 所有机器使用**烘焙方块模型**渲染，与原版熔炉一致，仅靠 `lit` 状态切换亮/灭
-- **不使用**方块实体渲染器，也没有逐帧客户端渲染
-- 熔炼逻辑只在服务端每 tick 执行一次
-- 配方查询结果带缓存
-- 自动输入/输出每 8 tick 才扫描一次相邻容器
+- Every machine renders with a **baked block model**, exactly like the vanilla furnace, switching only on the `lit` block state
+- **No** block entity renderer and no per-frame client rendering
+- Smelting logic runs once per tick, on the server only
+- Recipe lookups are cached
+- Auto input/output scans neighbouring containers every 8 ticks
 
-## 安装
+## Installation
 
-需要 **Java 25**，并按平台安装对应加载器：
+Requires **Java 25** and one of the following loaders:
 
-| 平台 | 要求 |
+| Platform | Requirement |
 |---|---|
-| Fabric | Loader 0.19.5+，Fabric API 0.161.0+ |
+| Fabric | Loader 0.19.5+, Fabric API 0.161.0+ |
 | Forge | Forge 26.2-65.0.0+ |
 | NeoForge | NeoForge 26.2.0.1-beta+ |
 
-把对应平台的 JAR 放进 `mods/` 文件夹即可。存档中已放置的旧版本方块在升级时会消失（Minecraft 按 mod id 查找注册项），请提前备份。
+Drop the matching jar into your `mods/` folder. Blocks placed by an older version disappear after the mod id changed, because Minecraft resolves registry entries by id — back up your worlds first.
 
-## 构建
+## Building
 
-三个平台共用一份源码（`src/` 只依赖原版 API），各自有独立的 Gradle 子项目：
+All three platforms share a single source tree (`src/` only uses vanilla APIs) and each has its own Gradle subproject:
 
 ```bash
-# Fabric（根目录）
+# Fabric (repo root)
 ./gradlew build
 
 # NeoForge
@@ -90,25 +91,25 @@ cd neoforge && ../gradlew build
 cd forge && ../gradlew build
 ```
 
-需要 JDK 25，并且 Gradle 下载依赖时要信任 Windows 证书库：
+JDK 25 is required, and Gradle needs to trust the Windows certificate store when downloading dependencies:
 
 ```bash
 export JAVA_TOOL_OPTIONS='-Djavax.net.ssl.trustStoreType=Windows-ROOT'
 ```
 
-若你的网络走 HTTP 代理，Forge 侧的下载器不会读取环境变量，需要额外传入：
+Behind an HTTP proxy, the Forge downloader does not read environment variables, so pass them explicitly:
 
 ```bash
 -Dhttps.proxyHost=<host> -Dhttps.proxyPort=<port> \
 -Dhttp.proxyHost=<host>  -Dhttp.proxyPort=<port>
 ```
 
-## 致谢
+## Credits
 
-- 概念源自 **Better Furnaces**（TheFrogMC）与 **Iron Furnaces**（Qelifern）
-- 本项目沿用 [Better Furnaces Reforged](https://github.com/Wilyicaro/BetterFurnacesReforged) 的材质，原作者 Icaro K. Bomfim（MIT 授权）
-- 多加载器结构参考 [Mouse Tweaks](https://github.com/YaLTeR/MouseTweaks)
+- Concept based on **Better Furnaces** (TheFrogMC) and **Iron Furnaces** (Qelifern)
+- Textures are reused from [Better Furnaces Reforged](https://github.com/Wilyicaro/BetterFurnacesReforged) by Icaro K. Bomfim, MIT licensed
+- The multi-loader layout follows [Mouse Tweaks](https://github.com/YaLTeR/MouseTweaks)
 
-## 许可证
+## License
 
-[MIT](LICENSE)。上游 Better Furnaces Reforged 的版权声明与致谢完整保留。
+[MIT](LICENSE). The copyright notice and credits of Better Furnaces Reforged are kept intact.
