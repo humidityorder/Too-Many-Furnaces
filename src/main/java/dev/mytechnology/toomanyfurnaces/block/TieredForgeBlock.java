@@ -1,6 +1,5 @@
 package dev.mytechnology.toomanyfurnaces.block;
 
-import com.mojang.serialization.MapCodec;
 import dev.mytechnology.toomanyfurnaces.FurnaceTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,12 +29,10 @@ import org.jspecify.annotations.Nullable;
  */
 public class TieredForgeBlock extends AbstractFurnaceBlock {
 	private final FurnaceTier tier;
-	private final MapCodec<TieredForgeBlock> codec;
 
 	public TieredForgeBlock(final FurnaceTier tier, final BlockBehaviour.Properties properties) {
 		super(properties.lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 13 : 0));
 		this.tier = tier;
-		this.codec = BlockBehaviour.simpleCodec(props -> new TieredForgeBlock(tier, props));
 	}
 
 	public static BlockBehaviour.Properties defaultProperties() {
@@ -44,11 +41,6 @@ public class TieredForgeBlock extends AbstractFurnaceBlock {
 
 	public FurnaceTier getTier() {
 		return this.tier;
-	}
-
-	@Override
-	public MapCodec<TieredForgeBlock> codec() {
-		return this.codec;
 	}
 
 	@Override

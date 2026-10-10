@@ -3,7 +3,7 @@
   "id": "toomanyfurnaces",
   "version": "${version}",
   "name": "Too Many Furnaces",
-  "description": "A Minecraft 26.2 Fabric reimplementation inspired by Better Furnaces Reforged, featuring tiered furnaces, parallel forges and upgrades.",
+  "description": "A Minecraft 26.3 Fabric reimplementation inspired by Better Furnaces Reforged, featuring tiered furnaces, parallel forges and upgrades.",
   "authors": [
     "Mytechnology"
   ],
@@ -29,8 +29,8 @@
   },
   "depends": {
     "fabricloader": ">=0.19.5",
-    "minecraft": "~26.2",
+    "minecraft": "~26.3",
     "java": ">=25",
-    "fabric-api": ">=0.161.0"
+    "fabric-api": ">=0.162.0"
   }
 }

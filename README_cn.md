@@ -1,11 +1,11 @@
 # Too Many Furnaces
 
-> A Minecraft 26.2 mod with ten tiers of furnaces, ten tiers of three-lane forges and a full upgrade system.
-> 适用于 Minecraft 26.2 的模组：十级熔炉、十级三通道锻造炉，以及完整的升级体系。
+> A Minecraft 26.3 mod with ten tiers of furnaces, ten tiers of three-lane forges and a full upgrade system.
+> 适用于 Minecraft 26.3 的模组：十级熔炉、十级三通道锻造炉，以及完整的升级体系。
 
 English version: [README.md](README.md)
 
-受 [Better Furnaces Reforged](https://github.com/Wilyicaro/BetterFurnacesReforged) 启发，基于未混淆的 Minecraft 26.2 API 重新实现。同时支持 **Fabric**、**Forge** 和 **NeoForge** 三个加载器。
+受 [Better Furnaces Reforged](https://github.com/Wilyicaro/BetterFurnacesReforged) 启发，基于未混淆的 Minecraft 26.3 API 重新实现。同时支持 **Fabric**、**Forge** 和 **NeoForge** 三个加载器。
 
 ---
 
@@ -71,9 +71,9 @@ English version: [README.md](README.md)
 
 | 平台 | 要求 |
 |---|---|
-| Fabric | Loader 0.19.5+，Fabric API 0.161.0+ |
-| Forge | Forge 26.2-65.0.0+ |
-| NeoForge | NeoForge 26.2.0.1-beta+ |
+| Fabric | Loader 0.19.5+，Fabric API 0.162.0+ |
+| Forge | Forge 26.3-66.0.0+ |
+| NeoForge | NeoForge 26.3.0.58-beta+ |
 
 把对应平台的 JAR 放进 `mods/` 文件夹即可。存档中已放置的旧版本方块在升级时会消失（Minecraft 按 mod id 查找注册项），请提前备份。
 

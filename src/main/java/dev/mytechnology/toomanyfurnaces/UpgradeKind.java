@@ -33,7 +33,7 @@ public enum UpgradeKind {
 
 	/**
 	 * Placeholder upgrades are kept for recipe compatibility only; their tooltip must state that
-	 * the behaviour is planned for a later 26.2 release.
+	 * the behaviour is planned for a later 26.3 release.
 	 */
 	public boolean isPlaceholder() {
 		return this.placeholder;

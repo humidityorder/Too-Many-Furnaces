@@ -4,7 +4,7 @@
 
 简体中文文档：[README_cn.md](README_cn.md)
 
-Inspired by [Better Furnaces Reforged](https://github.com/Wilyicaro/BetterFurnacesReforged) and rebuilt from scratch against the unobfuscated Minecraft 26.2 API. Runs on **Fabric**, **Forge** and **NeoForge**.
+Inspired by [Better Furnaces Reforged](https://github.com/Wilyicaro/BetterFurnacesReforged) and rebuilt from scratch against the unobfuscated Minecraft 26.3 API. Runs on **Fabric**, **Forge** and **NeoForge**.
 
 ---
 
@@ -70,9 +70,9 @@ Requires **Java 25** and one of the following loaders:
 
 | Platform | Requirement |
 |---|---|
-| Fabric | Loader 0.19.5+, Fabric API 0.161.0+ |
-| Forge | Forge 26.2-65.0.0+ |
-| NeoForge | NeoForge 26.2.0.1-beta+ |
+| Fabric | Loader 0.19.5+, Fabric API 0.162.0+ |
+| Forge | Forge 26.3-66.0.0+ |
+| NeoForge | NeoForge 26.3.0.58-beta+ |
 
 Drop the matching jar into your `mods/` folder. Blocks placed by an older version disappear after the mod id changed, because Minecraft resolves registry entries by id — back up your worlds first.
 

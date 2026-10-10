@@ -88,7 +88,7 @@ publishing {
 			from components.java
 			pom {
 				name = "Too Many Furnaces"
-				description = "A Fabric 26.2 reimplementation inspired by Better Furnaces Reforged."
+				description = "A Fabric 26.3 reimplementation inspired by Better Furnaces Reforged."
 				licenses {
 					license {
 						name = "MIT License"

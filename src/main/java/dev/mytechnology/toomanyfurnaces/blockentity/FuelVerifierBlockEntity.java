@@ -58,7 +58,7 @@ public class FuelVerifierBlockEntity extends BlockEntity implements Container, M
 
 	public int getBurnTime() {
 		final ItemStack stack = this.items.get(0);
-		return stack.isEmpty() || this.level == null ? 0 : this.level.fuelValues().burnDuration(stack);
+		return dev.mytechnology.toomanyfurnaces.FuelUtil.burnDuration(this.level, stack);
 	}
 
 	@Override

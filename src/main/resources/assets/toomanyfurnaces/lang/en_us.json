@@ -115,7 +115,7 @@
   "tooltip.toomanyfurnaces.upgrade.raw_ores": "Doubles the output of raw ore items.",
   "tooltip.toomanyfurnaces.upgrade.advanced_ores": "Quadruples the output of ores and ore blocks.",
   "tooltip.toomanyfurnaces.upgrade.ultimate_ores": "Quadruples the output of ores, ore blocks and raw ores.",
-  "tooltip.toomanyfurnaces.upgrade.not_implemented": "Not implemented yet - planned for a later 26.2 release.",
+  "tooltip.toomanyfurnaces.upgrade.not_implemented": "Not implemented yet - planned for a later 26.3 release.",
   "tooltip.toomanyfurnaces.upgrade.tier.keep": "The inventory, upgrades and settings are preserved.",
   "tooltip.toomanyfurnaces.redstone_mode.0": "Redstone control: ignored",
   "tooltip.toomanyfurnaces.redstone_mode.1": "Redstone control: runs without signal",

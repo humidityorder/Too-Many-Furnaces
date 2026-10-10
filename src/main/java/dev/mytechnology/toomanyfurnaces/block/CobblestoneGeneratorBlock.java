@@ -1,6 +1,5 @@
 package dev.mytechnology.toomanyfurnaces.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
@@ -29,11 +28,8 @@ import org.jspecify.annotations.Nullable;
 public class CobblestoneGeneratorBlock extends BaseEntityBlock {
 	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
-	private final MapCodec<CobblestoneGeneratorBlock> codec;
-
 	public CobblestoneGeneratorBlock(final BlockBehaviour.Properties properties) {
 		super(properties);
-		this.codec = BlockBehaviour.simpleCodec(CobblestoneGeneratorBlock::new);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 	}
 
@@ -58,11 +54,6 @@ public class CobblestoneGeneratorBlock extends BaseEntityBlock {
 
 	public static BlockBehaviour.Properties defaultProperties() {
 		return BlockBehaviour.Properties.of().strength(3.5F).requiresCorrectToolForDrops().sound(SoundType.STONE);
-	}
-
-	@Override
-	public MapCodec<CobblestoneGeneratorBlock> codec() {
-		return this.codec;
 	}
 
 	@Override

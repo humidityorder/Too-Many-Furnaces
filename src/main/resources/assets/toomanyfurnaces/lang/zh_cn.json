@@ -115,7 +115,7 @@
   "tooltip.toomanyfurnaces.upgrade.raw_ores": "粗矿类物品的产出翻倍。",
   "tooltip.toomanyfurnaces.upgrade.advanced_ores": "矿石及矿石块的产出翻两番（×4）。",
   "tooltip.toomanyfurnaces.upgrade.ultimate_ores": "矿石、矿石块与粗矿的产出翻两番（×4）。",
-  "tooltip.toomanyfurnaces.upgrade.not_implemented": "尚未实现，计划在后续 26.2 版本中提供。",
+  "tooltip.toomanyfurnaces.upgrade.not_implemented": "尚未实现，计划在后续 26.3 版本中提供。",
   "tooltip.toomanyfurnaces.upgrade.tier.keep": "物品栏、升级与设置都会被保留。",
   "tooltip.toomanyfurnaces.redstone_mode.0": "红石控制：忽略",
   "tooltip.toomanyfurnaces.redstone_mode.1": "红石控制：无信号时运行",

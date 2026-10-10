@@ -240,7 +240,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 			return 0;
 		}
 
-		final int base = level.fuelValues().burnDuration(fuel);
+		final int base = dev.mytechnology.toomanyfurnaces.FuelUtil.burnDuration(level, fuel);
 		if (base <= 0) {
 			return 0;
 		}
@@ -486,7 +486,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 				continue;
 			}
 
-			final boolean fuel = level.fuelValues().isFuel(stack);
+			final boolean fuel = dev.mytechnology.toomanyfurnaces.FuelUtil.isFuel(level, stack);
 			if (fuel) {
 				this.pullInto(this.getFuelSlot(), source, sourceSlot, stack);
 			} else if (this.hasRecipe(level, stack)) {
@@ -615,7 +615,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 			return false;
 		}
 
-		if (!this.level.fuelValues().isFuel(stack)) {
+		if (!dev.mytechnology.toomanyfurnaces.FuelUtil.isFuel(this.level, stack)) {
 			return false;
 		}
 

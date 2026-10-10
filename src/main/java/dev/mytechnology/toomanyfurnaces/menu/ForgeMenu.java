@@ -132,7 +132,7 @@ public class ForgeMenu extends AbstractContainerMenu {
 	}
 
 	private boolean isFuel(final ItemStack stack, final Player player) {
-		return !stack.isEmpty() && player.level().fuelValues().isFuel(stack);
+		return dev.mytechnology.toomanyfurnaces.FuelUtil.isFuel(player.level(), stack);
 	}
 
 	private boolean isSmeltable(final ItemStack stack, final Player player) {
