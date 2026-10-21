@@ -4,6 +4,7 @@
     "top": "toomanyfurnaces:block/netherhot_top",
     "side": "toomanyfurnaces:block/netherhot_side",
     "front": "toomanyfurnaces:block/netherhot_front",
+    "overlay": "toomanyfurnaces:block/front",
     "particle": "toomanyfurnaces:block/netherhot_front"
   }
 }

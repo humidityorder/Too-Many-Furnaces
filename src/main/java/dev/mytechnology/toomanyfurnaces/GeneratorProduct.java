@@ -13,6 +13,8 @@ public enum GeneratorProduct {
 	COBBLESTONE(80, Items.COBBLESTONE),
 	STONE(100, Items.STONE),
 	BLACKSTONE(150, Items.BLACKSTONE),
+	COBBLED_DEEPSLATE(160, Items.COBBLED_DEEPSLATE),
+	DEEPSLATE(200, Items.DEEPSLATE),
 	OBSIDIAN(600, Items.OBSIDIAN);
 
 	private final int ticks;
