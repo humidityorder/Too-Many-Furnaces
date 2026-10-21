@@ -120,5 +120,9 @@
   "tooltip.toomanyfurnaces.redstone_mode.0": "红石控制：忽略",
   "tooltip.toomanyfurnaces.redstone_mode.1": "红石控制：无信号时运行",
   "tooltip.toomanyfurnaces.redstone_mode.2": "红石控制：有信号时运行",
-  "gui.toomanyfurnaces.fuel.empty": "放入燃料以检测其燃烧值。"
+  "gui.toomanyfurnaces.fuel.empty": "放入燃料以检测其燃烧值。",
+  "gui.toomanyfurnaces.cobblestone_generator.running": "运行中",
+  "gui.toomanyfurnaces.cobblestone_generator.paused": "已暂停",
+  "gui.toomanyfurnaces.cobblestone_generator.product.tooltip": "点击切换要生成的方块",
+  "gui.toomanyfurnaces.cobblestone_generator.toggle.tooltip": "点击暂停或继续生成"
 }

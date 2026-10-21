@@ -120,5 +120,9 @@
   "tooltip.toomanyfurnaces.redstone_mode.0": "Redstone control: ignored",
   "tooltip.toomanyfurnaces.redstone_mode.1": "Redstone control: runs without signal",
   "tooltip.toomanyfurnaces.redstone_mode.2": "Redstone control: runs with signal",
-  "gui.toomanyfurnaces.fuel.empty": "Insert a fuel to measure it."
+  "gui.toomanyfurnaces.fuel.empty": "Insert a fuel to measure it.",
+  "gui.toomanyfurnaces.cobblestone_generator.running": "Running",
+  "gui.toomanyfurnaces.cobblestone_generator.paused": "Paused",
+  "gui.toomanyfurnaces.cobblestone_generator.product.tooltip": "Click to cycle the block to generate",
+  "gui.toomanyfurnaces.cobblestone_generator.toggle.tooltip": "Click to pause or resume generating"
 }
