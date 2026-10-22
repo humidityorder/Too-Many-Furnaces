@@ -24,8 +24,9 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Turns a lava source and a water source into the selected {@link GeneratorProduct}. The buckets
- * themselves are never consumed, they only prove that both fluids are supplied - either bucket may
- * sit in either fluid slot. Generation can be paused from the GUI and the product switched there too.
+ * themselves are never consumed, they only prove that both fluids are supplied - the left slot
+ * holds the lava bucket and the right slot the water bucket. Generation can be paused from the GUI
+ * and the product switched there too.
  */
 public class CobblestoneGeneratorBlockEntity extends BlockEntity implements Container, MenuProvider {
 	public static final int FLUID_SLOT_LEFT = 0;
@@ -190,9 +191,9 @@ public class CobblestoneGeneratorBlockEntity extends BlockEntity implements Cont
 	@Override
 	public boolean canPlaceItem(final int slot, final ItemStack stack) {
 		return switch (slot) {
-			// Either bucket fits either fluid slot; only a second bucket of the same fluid is refused.
-			case FLUID_SLOT_LEFT, FLUID_SLOT_RIGHT -> (stack.is(Items.LAVA_BUCKET) || stack.is(Items.WATER_BUCKET))
-				&& !stack.is(this.items.get(slot == FLUID_SLOT_LEFT ? FLUID_SLOT_RIGHT : FLUID_SLOT_LEFT).getItem());
+			// The left slot only takes lava, the right slot only water; the fluids are no longer swappable.
+			case FLUID_SLOT_LEFT -> stack.is(Items.LAVA_BUCKET);
+			case FLUID_SLOT_RIGHT -> stack.is(Items.WATER_BUCKET);
 			default -> false;
 		};
 	}
@@ -213,6 +214,14 @@ public class CobblestoneGeneratorBlockEntity extends BlockEntity implements Cont
 	protected void loadAdditional(final ValueInput input) {
 		super.loadAdditional(input);
 		ContainerHelper.loadAllItems(input, this.items);
+		// Migrates saves written when either bucket order was allowed: water on the left and lava
+		// on the right now means the buckets sit in swapped slots.
+		if (this.items.get(FLUID_SLOT_LEFT).is(Items.WATER_BUCKET) && this.items.get(FLUID_SLOT_RIGHT).is(Items.LAVA_BUCKET)) {
+			final ItemStack water = this.items.get(FLUID_SLOT_LEFT);
+			this.items.set(FLUID_SLOT_LEFT, this.items.get(FLUID_SLOT_RIGHT));
+			this.items.set(FLUID_SLOT_RIGHT, water);
+		}
+
 		this.running = input.getBooleanOr("Running", true);
 		this.product = GeneratorProduct.byName(input.getStringOr("Product", GeneratorProduct.COBBLESTONE.name()));
 		this.progress = 0;
