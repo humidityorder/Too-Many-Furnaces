@@ -53,7 +53,7 @@ Right click a furnace or forge while holding an upgrade to install it. Every mac
 ## Other blocks
 
 - **Conductor blocks** (iron / gold / netherhot): crafting ingredients for forges
-- **Cobblestone Generator**: place a lava bucket and a water bucket in either order, then pick what it generates — cobblestone (4s), stone (5s), blackstone (7.5s), cobbled deepslate (8s), deepslate (10s) or obsidian (30s). A button in the GUI pauses and resumes it at any time
+- **Cobblestone Generator**: put a lava bucket in the left slot and a water bucket in the right one, then pick what it generates — cobblestone (4s), stone (5s), blackstone (7.5s), cobbled deepslate (8s), deepslate (10s) or obsidian (30s). A button in the GUI pauses and resumes it at any time
 - **Fuel Verifier**: shows how many items a fuel can smelt
 
 ## Performance

@@ -10,11 +10,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 /**
- * Cobblestone generator: two fluid slots (a lava and a water bucket in either order) and the
- * resulting block, laid out on the slot frames baked into the original GUI texture. The GUI buttons
- * pause/resume the generator and cycle the produced block via {@link #clickMenuButton}.
+ * Cobblestone generator: two fluid slots (a lava bucket on the left, a water bucket on the right)
+ * and the resulting block, laid out on the slot frames baked into the original GUI texture. The GUI
+ * buttons pause/resume the generator and cycle the produced block via {@link #clickMenuButton}.
  */
 public class CobblestoneGeneratorMenu extends AbstractContainerMenu {
 	public static final int FLUID_SLOT_LEFT = CobblestoneGeneratorBlockEntity.FLUID_SLOT_LEFT;
@@ -33,8 +34,8 @@ public class CobblestoneGeneratorMenu extends AbstractContainerMenu {
 		checkContainerSize(container, SLOT_COUNT);
 		checkContainerDataCount(data, CobblestoneGeneratorBlockEntity.DATA_COUNT);
 		this.data = data;
-		this.addSlot(new Slot(container, FLUID_SLOT_LEFT, 53, 27));
-		this.addSlot(new Slot(container, FLUID_SLOT_RIGHT, 108, 27));
+		this.addSlot(new FluidBucketSlot(container, FLUID_SLOT_LEFT, 53, 27, Items.LAVA_BUCKET));
+		this.addSlot(new FluidBucketSlot(container, FLUID_SLOT_RIGHT, 108, 27, Items.WATER_BUCKET));
 		this.addSlot(new Slot(container, OUTPUT_SLOT, 80, 45));
 		this.addStandardInventorySlots(inventory, 8, 84);
 		this.addDataSlots(data);
@@ -88,7 +89,17 @@ public class CobblestoneGeneratorMenu extends AbstractContainerMenu {
 			}
 
 			slot.onQuickCraft(stack, clicked);
-		} else if (!this.moveItemStackTo(stack, 0, SLOT_COUNT, false)) {
+		} else if (stack.is(Items.LAVA_BUCKET)) {
+			// Shift-clicking a lava bucket drops it into the left slot, shift-clicking a water
+			// bucket into the right one.
+			if (!this.moveItemStackTo(stack, FLUID_SLOT_LEFT, FLUID_SLOT_LEFT + 1, false)) {
+				return ItemStack.EMPTY;
+			}
+		} else if (stack.is(Items.WATER_BUCKET)) {
+			if (!this.moveItemStackTo(stack, FLUID_SLOT_RIGHT, FLUID_SLOT_RIGHT + 1, false)) {
+				return ItemStack.EMPTY;
+			}
+		} else if (!this.moveItemStackTo(stack, OUTPUT_SLOT, SLOT_COUNT, false)) {
 			return ItemStack.EMPTY;
 		}
 
