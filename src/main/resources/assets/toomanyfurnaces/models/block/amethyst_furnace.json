@@ -4,6 +4,7 @@
     "top": "toomanyfurnaces:block/amethyst_top",
     "side": "toomanyfurnaces:block/amethyst_side",
     "front": "toomanyfurnaces:block/amethyst_front",
+    "overlay": "toomanyfurnaces:block/front",
     "particle": "toomanyfurnaces:block/amethyst_front"
   }
 }
