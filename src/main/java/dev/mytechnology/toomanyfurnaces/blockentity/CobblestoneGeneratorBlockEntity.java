@@ -1,5 +1,6 @@
 package dev.mytechnology.toomanyfurnaces.blockentity;
 
+import dev.mytechnology.toomanyfurnaces.GeneratorProduct;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -10,6 +11,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -21,19 +23,56 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Turns a lava source and a water source into cobblestone. The buckets themselves are never consumed,
- * they only prove that both fluids are supplied. Runs once per second on the server ticker only.
+ * Turns a lava source and a water source into the selected {@link GeneratorProduct}. The buckets
+ * themselves are never consumed, they only prove that both fluids are supplied - the left slot
+ * holds the lava bucket and the right slot the water bucket. Generation can be paused from the GUI
+ * and the product switched there too.
  */
 public class CobblestoneGeneratorBlockEntity extends BlockEntity implements Container, MenuProvider {
-	public static final int LAVA_SLOT = 0;
-	public static final int WATER_SLOT = 1;
+	public static final int FLUID_SLOT_LEFT = 0;
+	public static final int FLUID_SLOT_RIGHT = 1;
 	public static final int OUTPUT_SLOT = 2;
 	public static final int SIZE = 3;
-	private static final int GENERATE_INTERVAL = 20;
+
+	// Indices into the ContainerData synced to the menu, shared with CobblestoneGeneratorMenu.
+	public static final int DATA_RUNNING = 0;
+	public static final int DATA_PRODUCT = 1;
+	public static final int DATA_PROGRESS = 2;
+	public static final int DATA_COUNT = 3;
+
 	private static final int MAX_BUFFER = 64;
 
 	private final NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
-	private int tickCount;
+	private boolean running = true;
+	private GeneratorProduct product = GeneratorProduct.COBBLESTONE;
+	private int progress;
+
+	protected final ContainerData dataAccess = new ContainerData() {
+		@Override
+		public int get(final int id) {
+			return switch (id) {
+				case DATA_RUNNING -> CobblestoneGeneratorBlockEntity.this.running ? 1 : 0;
+				case DATA_PRODUCT -> CobblestoneGeneratorBlockEntity.this.product.ordinal();
+				case DATA_PROGRESS -> CobblestoneGeneratorBlockEntity.this.progress;
+				default -> 0;
+			};
+		}
+
+		@Override
+		public void set(final int id, final int value) {
+			switch (id) {
+				case DATA_RUNNING -> CobblestoneGeneratorBlockEntity.this.setRunning(value != 0);
+				case DATA_PRODUCT -> CobblestoneGeneratorBlockEntity.this.setProduct(GeneratorProduct.byOrdinal(value));
+				default -> {
+				}
+			}
+		}
+
+		@Override
+		public int getCount() {
+			return DATA_COUNT;
+		}
+	};
 
 	public CobblestoneGeneratorBlockEntity(final BlockEntityType<?> type, final BlockPos pos, final BlockState state) {
 		super(type, pos, state);
@@ -44,24 +83,59 @@ public class CobblestoneGeneratorBlockEntity extends BlockEntity implements Cont
 			return;
 		}
 
-		entity.tickCount++;
-		if (entity.tickCount % GENERATE_INTERVAL != 0) {
-			return;
-		}
-
-		if (!entity.items.get(LAVA_SLOT).is(Items.LAVA_BUCKET) || !entity.items.get(WATER_SLOT).is(Items.WATER_BUCKET)) {
+		if (!entity.running || !entity.hasBothFluids()) {
 			return;
 		}
 
 		final ItemStack output = entity.items.get(OUTPUT_SLOT);
-		final ItemStack cobble = new ItemStack(Items.COBBLESTONE);
-		if (output.isEmpty()) {
-			entity.items.set(OUTPUT_SLOT, cobble);
-			entity.setChanged();
-		} else if (output.is(Items.COBBLESTONE) && output.getCount() < MAX_BUFFER) {
-			output.grow(1);
+		if (!output.isEmpty() && (!output.is(entity.product.item()) || output.getCount() >= MAX_BUFFER)) {
+			return;
+		}
+
+		entity.progress++;
+		if (entity.progress >= entity.product.ticks()) {
+			entity.progress = 0;
+			if (output.isEmpty()) {
+				entity.items.set(OUTPUT_SLOT, entity.product.stack());
+			} else {
+				output.grow(1);
+			}
+
 			entity.setChanged();
 		}
+	}
+
+	private boolean hasBothFluids() {
+		boolean lava = false;
+		boolean water = false;
+		for (final int slot : new int[]{FLUID_SLOT_LEFT, FLUID_SLOT_RIGHT}) {
+			if (this.items.get(slot).is(Items.LAVA_BUCKET)) {
+				lava = true;
+			} else if (this.items.get(slot).is(Items.WATER_BUCKET)) {
+				water = true;
+			}
+		}
+
+		return lava && water;
+	}
+
+	public boolean isRunning() {
+		return this.running;
+	}
+
+	public void setRunning(final boolean running) {
+		this.running = running;
+		this.setChanged();
+	}
+
+	public GeneratorProduct getProduct() {
+		return this.product;
+	}
+
+	public void setProduct(final GeneratorProduct product) {
+		this.product = product;
+		this.progress = 0;
+		this.setChanged();
 	}
 
 	@Override
@@ -117,8 +191,9 @@ public class CobblestoneGeneratorBlockEntity extends BlockEntity implements Cont
 	@Override
 	public boolean canPlaceItem(final int slot, final ItemStack stack) {
 		return switch (slot) {
-			case LAVA_SLOT -> stack.is(Items.LAVA_BUCKET);
-			case WATER_SLOT -> stack.is(Items.WATER_BUCKET);
+			// The left slot only takes lava, the right slot only water; the fluids are no longer swappable.
+			case FLUID_SLOT_LEFT -> stack.is(Items.LAVA_BUCKET);
+			case FLUID_SLOT_RIGHT -> stack.is(Items.WATER_BUCKET);
 			default -> false;
 		};
 	}
@@ -139,12 +214,25 @@ public class CobblestoneGeneratorBlockEntity extends BlockEntity implements Cont
 	protected void loadAdditional(final ValueInput input) {
 		super.loadAdditional(input);
 		ContainerHelper.loadAllItems(input, this.items);
+		// Migrates saves written when either bucket order was allowed: water on the left and lava
+		// on the right now means the buckets sit in swapped slots.
+		if (this.items.get(FLUID_SLOT_LEFT).is(Items.WATER_BUCKET) && this.items.get(FLUID_SLOT_RIGHT).is(Items.LAVA_BUCKET)) {
+			final ItemStack water = this.items.get(FLUID_SLOT_LEFT);
+			this.items.set(FLUID_SLOT_LEFT, this.items.get(FLUID_SLOT_RIGHT));
+			this.items.set(FLUID_SLOT_RIGHT, water);
+		}
+
+		this.running = input.getBooleanOr("Running", true);
+		this.product = GeneratorProduct.byName(input.getStringOr("Product", GeneratorProduct.COBBLESTONE.name()));
+		this.progress = 0;
 	}
 
 	@Override
 	protected void saveAdditional(final ValueOutput output) {
 		super.saveAdditional(output);
 		ContainerHelper.saveAllItems(output, this.items);
+		output.putBoolean("Running", this.running);
+		output.putString("Product", this.product.name());
 	}
 
 	@Override
@@ -154,6 +242,6 @@ public class CobblestoneGeneratorBlockEntity extends BlockEntity implements Cont
 
 	@Override
 	public @Nullable AbstractContainerMenu createMenu(final int containerId, final Inventory inventory, final Player player) {
-		return new dev.mytechnology.toomanyfurnaces.menu.CobblestoneGeneratorMenu(containerId, inventory, this);
+		return new dev.mytechnology.toomanyfurnaces.menu.CobblestoneGeneratorMenu(containerId, inventory, this, this.dataAccess);
 	}
 }
