@@ -4,6 +4,7 @@
     "top": "toomanyfurnaces:block/diamond_top",
     "side": "toomanyfurnaces:block/diamond_side",
     "front": "toomanyfurnaces:block/diamond_front",
+    "overlay": "toomanyfurnaces:block/front",
     "particle": "toomanyfurnaces:block/diamond_front"
   }
 }
