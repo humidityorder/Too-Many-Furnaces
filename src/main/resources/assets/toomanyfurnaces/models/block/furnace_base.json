@@ -1,7 +1,8 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "#front"
+    "particle": "#front",
+    "overlay": "toomanyfurnaces:block/empty"
   },
   "elements": [
     {
