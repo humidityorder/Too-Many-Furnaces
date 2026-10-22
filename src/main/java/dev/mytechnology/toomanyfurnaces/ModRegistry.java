@@ -218,7 +218,8 @@ public final class ModRegistry {
 			FeatureFlags.VANILLA_SET
 		));
 		COBBLESTONE_GENERATOR_MENU_TYPE = registerMenu(menus, "cobblestone_generator", new MenuType<>(
-			(id, inventory) -> new CobblestoneGeneratorMenu(id, inventory, new SimpleContainer(CobblestoneGeneratorBlockEntity.SIZE)),
+			(id, inventory) -> new CobblestoneGeneratorMenu(id, inventory, new SimpleContainer(CobblestoneGeneratorBlockEntity.SIZE),
+				new SimpleContainerData(CobblestoneGeneratorBlockEntity.DATA_COUNT)),
 			FeatureFlags.VANILLA_SET
 		));
 		FUEL_VERIFIER_MENU_TYPE = registerMenu(menus, "fuel_verifier", new MenuType<>(
