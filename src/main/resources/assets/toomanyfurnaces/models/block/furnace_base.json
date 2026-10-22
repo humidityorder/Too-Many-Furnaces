@@ -1,7 +1,8 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "#front"
+    "particle": "#front",
+    "overlay": "toomanyfurnaces:block/empty"
   },
   "elements": [
     {
@@ -75,6 +76,30 @@
           ],
           "texture": "#side",
           "cullface": "east"
+        }
+      }
+    },
+    {
+      "from": [
+        -0.03,
+        -0.03,
+        -0.03
+      ],
+      "to": [
+        16.03,
+        16.03,
+        16.03
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#overlay",
+          "cullface": "north"
         }
       }
     }
