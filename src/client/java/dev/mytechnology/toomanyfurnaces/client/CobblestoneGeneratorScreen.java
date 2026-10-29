@@ -35,12 +35,12 @@ public class CobblestoneGeneratorScreen extends AbstractContainerScreen<Cobblest
 		this.titleLabelX = (this.imageWidth - this.font.width(this.title)) / 2;
 		this.productButton = this.addRenderableWidget(Button.builder(this.menu.getProduct().displayName(), button ->
 				this.sendMenuButtonClick(CobblestoneGeneratorMenu.BUTTON_CYCLE_PRODUCT))
-			.bounds(this.leftPos + 28, this.topPos + 64, 70, 16)
+			.bounds(this.leftPos + 8, this.topPos + 64, 100, 16)
 			.tooltip(Tooltip.create(this.label("product.tooltip")))
 			.build());
 		this.runningButton = this.addRenderableWidget(Button.builder(this.runningLabel(), button ->
 				this.sendMenuButtonClick(CobblestoneGeneratorMenu.BUTTON_TOGGLE_RUNNING))
-			.bounds(this.leftPos + 102, this.topPos + 64, 46, 16)
+			.bounds(this.leftPos + 110, this.topPos + 64, 58, 16)
 			.tooltip(Tooltip.create(this.label("toggle.tooltip")))
 			.build());
 	}

@@ -36,7 +36,7 @@ public class CobblestoneGeneratorMenu extends AbstractContainerMenu {
 		this.data = data;
 		this.addSlot(new FluidBucketSlot(container, FLUID_SLOT_LEFT, 53, 27, Items.LAVA_BUCKET));
 		this.addSlot(new FluidBucketSlot(container, FLUID_SLOT_RIGHT, 108, 27, Items.WATER_BUCKET));
-		this.addSlot(new Slot(container, OUTPUT_SLOT, 80, 45));
+		this.addSlot(new GeneratorOutputSlot(container, OUTPUT_SLOT, 80, 45));
 		this.addStandardInventorySlots(inventory, 8, 84);
 		this.addDataSlots(data);
 	}
