@@ -55,7 +55,7 @@ public class ForgeBlockEntity extends AbstractSmeltingBlockEntity implements Men
 	};
 
 	public ForgeBlockEntity(final BlockEntityType<?> type, final BlockPos pos, final BlockState state) {
-		super(type, pos, state, 7);
+		super(type, pos, state, 7, FORGE_UPGRADE_COUNT);
 	}
 
 	@Override

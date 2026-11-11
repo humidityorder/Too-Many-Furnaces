@@ -2,13 +2,17 @@ package dev.mytechnology.toomanyfurnaces.neoforge;
 
 import dev.mytechnology.toomanyfurnaces.ModRegistry;
 import dev.mytechnology.toomanyfurnaces.TMF;
+import dev.mytechnology.toomanyfurnaces.item.ContainerBinding;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +37,20 @@ public final class TooManyFurnacesNeoForge {
 
 	public TooManyFurnacesNeoForge(final IEventBus modBus) {
 		modBus.addListener(this::onRegister);
+		NeoForge.EVENT_BUS.addListener(this::onRightClickBlock);
+	}
+
+	/**
+	 * Vanilla opens a chest's menu before Item#useOn runs. Cancelling this event (on both logical
+	 * sides) lets an automation upgrade bind to the container instead of opening that menu.
+	 */
+	private void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
+		final InteractionResult result = ContainerBinding.onUseBlock(
+			event.getEntity(), event.getLevel(), event.getHand(), event.getPos(), event.getItemStack());
+		if (result != InteractionResult.PASS) {
+			event.setCancellationResult(result);
+			event.setCanceled(true);
+		}
 	}
 
 	private void onRegister(final RegisterEvent event) {

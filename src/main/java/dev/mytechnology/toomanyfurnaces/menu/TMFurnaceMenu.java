@@ -25,7 +25,7 @@ public class TMFurnaceMenu extends AbstractFurnaceMenu {
 		super(ModRegistry.FURNACE_MENU_TYPE, RecipePropertySet.FURNACE_INPUT, RecipeBookType.FURNACE, containerId, inventory, container, data);
 		final AbstractSmeltingBlockEntity smelter = container instanceof AbstractSmeltingBlockEntity found ? found : null;
 		// Re-align the vanilla slots with the Better Furnaces GUI texture (frames at 53/17 and 53/53).
-		final Slot inputSlot = new Slot(container, 0, 54, 18);
+		final Slot inputSlot = new CapacitySlot(container, 0, 54, 18, smelter);
 		inputSlot.index = 0;
 		this.slots.set(0, inputSlot);
 		final FuelSlot fuelSlot = new FuelSlot(container, 1, 54, 54);
