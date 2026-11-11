@@ -66,6 +66,8 @@ public class SmeltingResultSlot extends Slot {
 
 	@Override
 	public int getMaxStackSize(final ItemStack stack) {
-		return this.smelter == null ? super.getMaxStackSize(stack) : Math.min(99, this.smelter.getSlotCapacity(stack));
+		return this.smelter == null
+			? super.getMaxStackSize(stack)
+			: this.smelter.getSlotCapacity(this.getContainerSlot(), stack);
 	}
 }

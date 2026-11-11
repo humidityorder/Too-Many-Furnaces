@@ -33,7 +33,7 @@ One forge per furnace tier, but each one **smelts three different items at the s
 
 ## Upgrades
 
-Right click a furnace or forge while holding an upgrade to install it. Every machine has three hidden upgrade slots.
+Right click a furnace or forge while holding an upgrade to install it. A furnace has three hidden upgrade slots, a forge has six (three on each side of its top bar).
 
 | Upgrade | Effect |
 |---|---|
@@ -41,14 +41,24 @@ Right click a furnace or forge while holding an upgrade to install it. Every mac
 | Ore Processing / Raw Ore Processing | ×2 output for ores and ore blocks / ×2 for raw ores |
 | Advanced / Ultimate Ore Processing | Up to ×4 (the ultimate version covers ores and raw ores alike) |
 | Blasting / Smoking | Switches the machine to blast furnace or smoker recipes |
-| Storage | Doubles every slot's capacity, up to 99 items |
-| Auto Input / Auto Output | Exchanges items with adjacent inventories every 8 ticks |
-| Factory | Auto input and auto output on every side |
+| Storage | Raises the capacity of input and output slots to 128 items |
+| Auto Input / Auto Output | Pulls from / pushes into a bound container every 8 ticks |
+| Auto Input/Output | Both directions with a single bound container |
 | Redstone Signal | Right click to cycle through three redstone modes |
 | Liquid Fuel | Allows lava buckets as fuel and returns the empty bucket |
 | Tier Upgrade | Upgrades the machine in place, keeping its inventory and upgrades |
 
-**Not implemented yet (placeholders):** Energy, XP Tank, Generator, Color and Piping. They can be crafted but have no effect, and their tooltips say so.
+### Binding a container
+
+The three automation upgrades (Auto Input, Auto Output, Auto Input/Output) are bound to a container rather than to a neighbouring block:
+
+1. Hold the upgrade and right click any chest, trapped chest, barrel or hopper to bind it. The bound coordinates (and dimension) appear in the item tooltip.
+2. Right click air to unbind. The binding is also cleared automatically when the bound block is destroyed, replaced or moved.
+3. Right click a furnace/forge with the still-bound upgrade to install it. The machine then takes smeltable items and fuel from the bound container and/or sends smelted results back to it.
+
+Double chests are handled as one 54-slot container. The `factory_upgrade` registry id is kept for save-game compatibility, but the item is now called "Auto Input/Output Upgrade".
+
+The placeholder upgrades (Energy, Generator, Color, Piping and XP Tank) have been removed entirely.
 
 ## Other blocks
 

@@ -1,6 +1,11 @@
 package dev.mytechnology.toomanyfurnaces.blockentity;
 
+import dev.mytechnology.toomanyfurnaces.UpgradeKind;
+import dev.mytechnology.toomanyfurnaces.item.ContainerBinding;
+import dev.mytechnology.toomanyfurnaces.item.UpgradeItem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -38,18 +43,23 @@ import org.jspecify.annotations.Nullable;
  * Server side smelting logic shared by every tiered furnace and forge.
  * <p>
  * Performance contract: all logic runs once per tick on the {@link ServerLevel} ticker only, recipe
- * lookups are cached, and neighbour interaction happens at most once every {@link #TRANSFER_INTERVAL}
- * ticks. Nothing here touches the client and no dynamic renderer is used.
+ * lookups are cached, and bound-container interaction happens at most once every
+ * {@link #TRANSFER_INTERVAL} ticks. Nothing here touches the client and no dynamic renderer is used.
  */
 public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements WorldlyContainer {
+	/** Number of hidden upgrade slots on a (single lane) furnace. */
 	public static final int UPGRADE_COUNT = 3;
+	/** The forge GUI has six upgrade slots: three on the left and three on the right of its top bar. */
+	public static final int FORGE_UPGRADE_COUNT = 6;
+	/** Slot capacity granted to input and output slots by the storage upgrade. */
+	public static final int STORAGE_CAPACITY = 128;
 	public static final int TRANSFER_INTERVAL = 8;
 	/** Recipes are re-validated at most this often so a datapack reload never leaves a stale cache. */
 	private static final int RECIPE_CACHE_TTL = 100;
 	private static final int[] EMPTY_SLOTS = new int[0];
 
 	protected NonNullList<ItemStack> items;
-	protected final NonNullList<ItemStack> upgrades = NonNullList.withSize(UPGRADE_COUNT, ItemStack.EMPTY);
+	protected final NonNullList<ItemStack> upgrades;
 	protected int litTime;
 	protected int litTotalTime;
 	protected int[] cookingProgress;
@@ -63,9 +73,12 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 	private RecipeType<?> cachedRecipeType;
 	private int recipeCacheAge;
 
-	protected AbstractSmeltingBlockEntity(final BlockEntityType<?> type, final BlockPos pos, final BlockState state, final int itemCount) {
+	protected AbstractSmeltingBlockEntity(
+		final BlockEntityType<?> type, final BlockPos pos, final BlockState state, final int itemCount, final int upgradeCount
+	) {
 		super(type, pos, state);
 		this.items = NonNullList.withSize(itemCount, ItemStack.EMPTY);
+		this.upgrades = NonNullList.withSize(upgradeCount, ItemStack.EMPTY);
 		this.cookingProgress = new int[this.getInputSlots().length];
 	}
 
@@ -91,7 +104,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 			this.recipeCacheAge = 0;
 		}
 		if (this.tickCount % TRANSFER_INTERVAL == 0) {
-			this.transferWithNeighbours(level, pos);
+			this.transferWithBoundContainers(level);
 		}
 
 		final boolean wasLit = this.litTime > 0;
@@ -213,7 +226,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 
 		final int multiplier = this.oreMultiplier(input);
 		if (multiplier > 1) {
-			result.setCount(Math.min(99, result.getCount() * multiplier));
+			result.setCount(Math.min(STORAGE_CAPACITY, result.getCount() * multiplier));
 		}
 
 		return result;
@@ -312,7 +325,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 			return false;
 		}
 
-		return current.getCount() + result.getCount() <= this.getSlotCapacity(result);
+		return current.getCount() + result.getCount() <= this.getSlotCapacity(outputSlot, result);
 	}
 
 	private void produce(final int inputSlot, final int outputSlot, final ItemStack result, final float experience) {
@@ -320,7 +333,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 		if (current.isEmpty()) {
 			this.items.set(outputSlot, result.copy());
 		} else {
-			current.grow(Math.min(result.getCount(), this.getSlotCapacity(result) - current.getCount()));
+			current.grow(Math.min(result.getCount(), this.getSlotCapacity(outputSlot, result) - current.getCount()));
 		}
 
 		this.storedXp += experience;
@@ -362,13 +375,47 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 		return false;
 	}
 
+	/** Fallback stack limit used when the target slot is not known. */
 	public int getSlotCapacity(final ItemStack stack) {
-		final int max = stack.getMaxStackSize();
+		return Math.max(1, stack.getMaxStackSize());
+	}
+
+	/**
+	 * The storage upgrade raises the capacity of the input and output slots to 128 items. The fuel
+	 * slot keeps the item's normal maximum stack size.
+	 */
+	public int getSlotCapacity(final int slot, final ItemStack stack) {
+		final int max = Math.max(1, stack.getMaxStackSize());
 		if (max <= 1) {
 			return 1;
 		}
 
-		return this.hasUpgrade(dev.mytechnology.toomanyfurnaces.UpgradeKind.STORAGE) ? Math.min(99, max * 2) : max;
+		if (this.hasUpgrade(dev.mytechnology.toomanyfurnaces.UpgradeKind.STORAGE)
+			&& (this.isInputSlot(slot) || this.isOutputSlot(slot))) {
+			return STORAGE_CAPACITY;
+		}
+
+		return max;
+	}
+
+	private boolean isInputSlot(final int slot) {
+		for (int input : this.getInputSlots()) {
+			if (input == slot) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean isOutputSlot(final int slot) {
+		for (int output : this.getOutputSlots()) {
+			if (output == slot) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public int getRedstoneMode() {
@@ -382,34 +429,53 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 
 	// ------------------------------------------------------------------ automation
 
-	private void transferWithNeighbours(final ServerLevel level, final BlockPos pos) {
-		final boolean input = this.hasUpgrade(dev.mytechnology.toomanyfurnaces.UpgradeKind.AUTO_INPUT)
-			|| this.hasUpgrade(dev.mytechnology.toomanyfurnaces.UpgradeKind.FACTORY);
-		final boolean output = this.hasUpgrade(dev.mytechnology.toomanyfurnaces.UpgradeKind.AUTO_OUTPUT)
-			|| this.hasUpgrade(dev.mytechnology.toomanyfurnaces.UpgradeKind.FACTORY);
-		if (!input && !output) {
-			return;
-		}
-
-		for (Direction direction : Direction.values()) {
-			final BlockPos neighbourPos = pos.relative(direction);
-			final BlockEntity neighbour = level.getBlockEntity(neighbourPos);
-			if (!(neighbour instanceof Container container) || container == this) {
+	/**
+	 * Automation upgrades no longer scan adjacent inventories: every installed upgrade carries its
+	 * own bound container. A destroyed or replaced bound block clears the binding on that stack.
+	 */
+	private void transferWithBoundContainers(final ServerLevel level) {
+		final List<Container> sources = new ArrayList<>();
+		final List<Container> targets = new ArrayList<>();
+		for (ItemStack upgrade : this.upgrades) {
+			if (!(upgrade.getItem() instanceof UpgradeItem item) || !item.getKind().isContainerBound()) {
 				continue;
 			}
 
-			if (output) {
-				this.pushOutputs(container, direction);
+			final boolean wasBound = ContainerBinding.isBound(upgrade);
+			final Container container = ContainerBinding.resolve(level, upgrade);
+			if (container == null) {
+				if (wasBound && !ContainerBinding.isBound(upgrade)) {
+					this.setChanged();
+				}
+
+				continue;
 			}
 
-			if (input) {
-				this.pullInputs(level, container, direction);
+			if (container == this) {
+				continue;
 			}
+
+			if (item.getKind() == UpgradeKind.AUTO_INPUT || item.getKind() == UpgradeKind.AUTO_IO) {
+				sources.add(container);
+			}
+
+			if (item.getKind() == UpgradeKind.AUTO_OUTPUT || item.getKind() == UpgradeKind.AUTO_IO) {
+				targets.add(container);
+			}
+		}
+
+		for (Container target : targets) {
+			this.pushOutputs(target, null);
+		}
+
+		for (Container source : sources) {
+			this.pullInputs(level, source, null);
 		}
 	}
 
-	private static int[] accessibleSlots(final Container container, final Direction direction) {
-		if (container instanceof WorldlyContainer worldly) {
+	/** A null direction means "all slots, ignore face restrictions" (bound-container access). */
+	private static int[] accessibleSlots(final Container container, final @Nullable Direction direction) {
+		if (direction != null && container instanceof WorldlyContainer worldly) {
 			return worldly.getSlotsForFace(direction.getOpposite());
 		}
 
@@ -422,7 +488,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 		return slots;
 	}
 
-	private void pushOutputs(final Container target, final Direction direction) {
+	private void pushOutputs(final Container target, final @Nullable Direction direction) {
 		final int[] targetSlots = accessibleSlots(target, direction);
 		for (int outputSlot : this.getOutputSlots()) {
 			final ItemStack stack = this.items.get(outputSlot);
@@ -435,7 +501,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 					continue;
 				}
 
-				if (target instanceof WorldlyContainer worldly
+				if (direction != null && target instanceof WorldlyContainer worldly
 					&& !worldly.canPlaceItemThroughFace(targetSlot, stack, direction.getOpposite())) {
 					continue;
 				}
@@ -445,7 +511,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 					continue;
 				}
 
-				final int limit = Math.min(target.getMaxStackSize(stack), Math.min(this.getSlotCapacity(stack), 99));
+				final int limit = Math.min(target.getMaxStackSize(stack), this.getSlotCapacity(outputSlot, stack));
 				final int room = existing.isEmpty() ? limit : limit - existing.getCount();
 				if (room <= 0) {
 					continue;
@@ -469,7 +535,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 		}
 	}
 
-	private void pullInputs(final ServerLevel level, final Container source, final Direction direction) {
+	private void pullInputs(final ServerLevel level, final Container source, final @Nullable Direction direction) {
 		final int[] sourceSlots = accessibleSlots(source, direction);
 		for (int sourceSlot : sourceSlots) {
 			if (sourceSlot < 0 || sourceSlot >= source.getContainerSize()) {
@@ -481,7 +547,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 				continue;
 			}
 
-			if (source instanceof WorldlyContainer worldly
+			if (direction != null && source instanceof WorldlyContainer worldly
 				&& !worldly.canTakeItemThroughFace(sourceSlot, stack, direction.getOpposite())) {
 				continue;
 			}
@@ -509,7 +575,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 			return false;
 		}
 
-		final int limit = Math.min(this.getSlotCapacity(stack), 99);
+		final int limit = this.getSlotCapacity(slot, stack);
 		final int room = current.isEmpty() ? limit : limit - current.getCount();
 		if (room <= 0) {
 			return false;
@@ -578,7 +644,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 
 		final boolean same = !stack.isEmpty() && ItemStack.isSameItemSameComponents(this.items.get(slot), stack);
 		this.items.set(slot, stack);
-		stack.limitSize(this.getSlotCapacity(stack));
+		stack.limitSize(this.getSlotCapacity(slot, stack));
 		if (!same) {
 			final int[] inputs = this.getInputSlots();
 			for (int i = 0; i < inputs.length; i++) {
@@ -720,7 +786,7 @@ public abstract class AbstractSmeltingBlockEntity extends BlockEntity implements
 	private final class UpgradeContainer implements Container {
 		@Override
 		public int getContainerSize() {
-			return UPGRADE_COUNT;
+			return AbstractSmeltingBlockEntity.this.upgrades.size();
 		}
 
 		@Override
