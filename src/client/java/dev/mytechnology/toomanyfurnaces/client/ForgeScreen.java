@@ -13,12 +13,21 @@ import net.minecraft.world.entity.player.Inventory;
 /**
  * Custom forge GUI drawn from the original Better Furnaces Reforged texture. Everything is a plain
  * static blit plus progress bars, so there is no per-frame dynamic renderer.
+ * <p>
+ * The furnace name sits inside the main panel (just above the input slots) instead of overlapping
+ * the upgrade bar, and the three functional areas are outlined in the colour used by the reference
+ * screenshots: green = inputs, yellow = fuel, blue = outputs.
  */
 public class ForgeScreen extends AbstractContainerScreen<ForgeMenu> {
 	private static final Identifier BACKGROUND = TMF.id("textures/container/forge_gui.png");
 	private static final Identifier WIDGETS = TMF.id("textures/container/widgets.png");
 	private static final int IMAGE_WIDTH = 176;
 	private static final int IMAGE_HEIGHT = 206;
+
+	/** Thin coloured frames around the three functional areas. */
+	private static final int INPUT_OUTLINE = 0xFF4BD75B;
+	private static final int FUEL_OUTLINE = 0xFFFFD447;
+	private static final int OUTPUT_OUTLINE = 0xFF4C91F5;
 
 	public ForgeScreen(final ForgeMenu menu, final Inventory inventory, final Component title) {
 		super(menu, inventory, title, IMAGE_WIDTH, IMAGE_HEIGHT);
@@ -28,7 +37,8 @@ public class ForgeScreen extends AbstractContainerScreen<ForgeMenu> {
 	public void init() {
 		super.init();
 		this.titleLabelX = (this.imageWidth - this.font.width(this.title)) / 2;
-		// centred, like the reference GUI, so the label sits between the fuel slot and the output tray
+		// Inside the main panel, centred above the input slots (the top bar is reserved for upgrades).
+		this.titleLabelY = 46;
 		this.inventoryLabelX = (this.imageWidth - this.font.width(this.playerInventoryTitle)) / 2;
 		this.inventoryLabelY = this.imageHeight - 94;
 	}
@@ -48,9 +58,20 @@ public class ForgeScreen extends AbstractContainerScreen<ForgeMenu> {
 
 		graphics.blit(RenderPipelines.GUI_TEXTURED, WIDGETS, xo + 7, yo + 99, 18.0F, 171.0F, 18, 18, 256, 256);
 		graphics.blit(RenderPipelines.GUI_TEXTURED, WIDGETS, xo + 103, yo + 75, 0.0F, 229.0F, 62, 26, 256, 256);
-		for (int i = 0; i < ForgeMenu.UPGRADE_END - ForgeMenu.UPGRADE_START; i++) {
+
+		// Six upgrade slots: three on the left of the top bar, three on the right.
+		for (int i = 0; i < 3; i++) {
 			graphics.blit(RenderPipelines.GUI_TEXTURED, WIDGETS, xo + 6 + i * 18, yo + 4, 0.0F, 171.0F, 18, 18, 256, 256);
+			graphics.blit(RenderPipelines.GUI_TEXTURED, WIDGETS, xo + 114 + i * 18, yo + 4, 0.0F, 171.0F, 18, 18, 256, 256);
 		}
+
+		// Colour-coded functional areas.
+		for (int i = 0; i < ForgeMenu.INPUT_SLOTS; i++) {
+			outline(graphics, xo + 26 + i * 18, yo + 61, 18, 18, INPUT_OUTLINE);
+		}
+
+		outline(graphics, xo + 7, yo + 99, 18, 18, FUEL_OUTLINE);
+		outline(graphics, xo + 103, yo + 75, 62, 26, OUTPUT_OUTLINE);
 
 		// one flame per input showing that lane's cooking progress
 		for (int i = 0; i < ForgeMenu.INPUT_SLOTS; i++) {
@@ -65,5 +86,13 @@ public class ForgeScreen extends AbstractContainerScreen<ForgeMenu> {
 		if (lit > 0) {
 			graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, xo + 80, yo + 80, 176.0F, 14.0F, lit + 1, 16, 256, 256);
 		}
+	}
+
+	/** Draws a one pixel frame; {@code fill} uses an exclusive bottom-right corner. */
+	private static void outline(final GuiGraphicsExtractor graphics, final int x, final int y, final int width, final int height, final int colour) {
+		graphics.fill(x, y, x + width, y + 1, colour);
+		graphics.fill(x, y + height - 1, x + width, y + height, colour);
+		graphics.fill(x, y, x + 1, y + height, colour);
+		graphics.fill(x + width - 1, y, x + width, y + height, colour);
 	}
 }

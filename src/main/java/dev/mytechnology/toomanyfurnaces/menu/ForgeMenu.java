@@ -14,7 +14,8 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Forge menu: three independent inputs (0-2) sharing one fuel slot (3), three outputs (4-6) and
- * three hidden upgrade slots (7-9).
+ * six hidden upgrade slots (7-12). The first three upgrade slots sit on the left of the top bar,
+ * the other three on the right, matching the GUI texture.
  */
 public class ForgeMenu extends AbstractContainerMenu {
 	public static final int INPUT_SLOTS = 3;
@@ -22,9 +23,10 @@ public class ForgeMenu extends AbstractContainerMenu {
 	public static final int OUTPUT_START = 4;
 	public static final int OUTPUT_END = 7;
 	public static final int UPGRADE_START = 7;
-	public static final int UPGRADE_END = 10;
-	public static final int INV_START = 10;
-	public static final int INV_END = 46;
+	public static final int UPGRADE_SLOTS = AbstractSmeltingBlockEntity.FORGE_UPGRADE_COUNT;
+	public static final int UPGRADE_END = UPGRADE_START + UPGRADE_SLOTS;
+	public static final int INV_START = UPGRADE_END;
+	public static final int INV_END = INV_START + 36;
 
 	private final ContainerData data;
 
@@ -34,18 +36,24 @@ public class ForgeMenu extends AbstractContainerMenu {
 		checkContainerDataCount(data, 6);
 		this.data = data;
 
+		final AbstractSmeltingBlockEntity smelter = container instanceof AbstractSmeltingBlockEntity found ? found : null;
 		for (int i = 0; i < INPUT_SLOTS; i++) {
-			this.addSlot(new Slot(container, i, 27 + i * 18, 62));
+			this.addSlot(new CapacitySlot(container, i, 27 + i * 18, 62, smelter));
 		}
 
 		this.addSlot(new FuelSlot(container, FUEL_SLOT, 8, 100));
-		final AbstractSmeltingBlockEntity smelter = container instanceof AbstractSmeltingBlockEntity found ? found : null;
 		for (int i = 0; i < OUTPUT_END - OUTPUT_START; i++) {
 			this.addSlot(new SmeltingResultSlot(inventory.player, container, OUTPUT_START + i, 108 + i * 18, 80, smelter));
 		}
 
-		for (int i = 0; i < UPGRADE_END - UPGRADE_START; i++) {
+		// three upgrade slots on the left of the top bar ...
+		for (int i = 0; i < 3; i++) {
 			this.addSlot(new UpgradeSlot(upgrades, i, 7 + i * 18, 5));
+		}
+
+		// ... and three more on the right (frames at x = 114, 132, 150 in the texture)
+		for (int i = 3; i < UPGRADE_SLOTS; i++) {
+			this.addSlot(new UpgradeSlot(upgrades, i, 115 + (i - 3) * 18, 5));
 		}
 
 		this.addStandardInventorySlots(inventory, 8, 126);

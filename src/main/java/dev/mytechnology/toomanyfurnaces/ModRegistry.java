@@ -175,16 +175,11 @@ public final class ModRegistry {
 		UPGRADES.put("storage_upgrade", registerItem(items, "storage_upgrade", p -> new UpgradeItem(p, UpgradeKind.STORAGE)));
 		UPGRADES.put("autoinput_upgrade", registerItem(items, "autoinput_upgrade", p -> new UpgradeItem(p, UpgradeKind.AUTO_INPUT)));
 		UPGRADES.put("autooutput_upgrade", registerItem(items, "autooutput_upgrade", p -> new UpgradeItem(p, UpgradeKind.AUTO_OUTPUT)));
-		UPGRADES.put("factory_upgrade", registerItem(items, "factory_upgrade", p -> new UpgradeItem(p, UpgradeKind.FACTORY)));
+		// "factory_upgrade" is kept as the registry id for save-game compatibility, but the item is
+		// now named "Auto Input/Output Upgrade" and behaves like the other bound-container upgrades.
+		UPGRADES.put("factory_upgrade", registerItem(items, "factory_upgrade", p -> new UpgradeItem(p, UpgradeKind.AUTO_IO)));
 		UPGRADES.put("redstone_signal_upgrade", registerItem(items, "redstone_signal_upgrade", p -> new UpgradeItem(p, UpgradeKind.REDSTONE)));
 		UPGRADES.put("liquid_fuel_upgrade", registerItem(items, "liquid_fuel_upgrade", p -> new UpgradeItem(p, UpgradeKind.LIQUID_FUEL)));
-
-		// compatibility placeholders: registered and craftable, behaviour documented as pending
-		UPGRADES.put("energy_upgrade", registerItem(items, "energy_upgrade", p -> new UpgradeItem(p, UpgradeKind.ENERGY)));
-		UPGRADES.put("xp_tank_upgrade", registerItem(items, "xp_tank_upgrade", p -> new UpgradeItem(p, UpgradeKind.XP)));
-		UPGRADES.put("generator_upgrade", registerItem(items, "generator_upgrade", p -> new UpgradeItem(p, UpgradeKind.GENERATOR)));
-		UPGRADES.put("color_upgrade", registerItem(items, "color_upgrade", p -> new UpgradeItem(p, UpgradeKind.COLOR)));
-		UPGRADES.put("piping_upgrade", registerItem(items, "piping_upgrade", p -> new UpgradeItem(p, UpgradeKind.PIPING)));
 
 		// Tier upgrades. A null source means the vanilla furnace; both the vanilla furnace and an
 		// intermediate tier can be a valid starting point for the same target tier.
@@ -214,7 +209,7 @@ public final class ModRegistry {
 			FeatureFlags.VANILLA_SET
 		));
 		FORGE_MENU_TYPE = registerMenu(menus, "forge", new MenuType<>(
-			(id, inventory) -> new ForgeMenu(id, inventory, new SimpleContainer(7), new SimpleContainer(3), new SimpleContainerData(6)),
+			(id, inventory) -> new ForgeMenu(id, inventory, new SimpleContainer(7), new SimpleContainer(ForgeMenu.UPGRADE_SLOTS), new SimpleContainerData(6)),
 			FeatureFlags.VANILLA_SET
 		));
 		COBBLESTONE_GENERATOR_MENU_TYPE = registerMenu(menus, "cobblestone_generator", new MenuType<>(
