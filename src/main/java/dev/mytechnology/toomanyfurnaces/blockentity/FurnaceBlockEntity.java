@@ -60,7 +60,7 @@ public class FurnaceBlockEntity extends AbstractSmeltingBlockEntity implements M
 	};
 
 	public FurnaceBlockEntity(final BlockEntityType<?> type, final BlockPos pos, final BlockState state) {
-		super(type, pos, state, 3);
+		super(type, pos, state, 3, UPGRADE_COUNT);
 	}
 
 	@Override

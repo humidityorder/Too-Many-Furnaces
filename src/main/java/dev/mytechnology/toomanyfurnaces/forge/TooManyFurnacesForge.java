@@ -2,11 +2,15 @@ package dev.mytechnology.toomanyfurnaces.forge;
 
 import dev.mytechnology.toomanyfurnaces.ModRegistry;
 import dev.mytechnology.toomanyfurnaces.TMF;
+import dev.mytechnology.toomanyfurnaces.item.ContainerBinding;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -35,6 +39,21 @@ public final class TooManyFurnacesForge {
 	public TooManyFurnacesForge(final FMLJavaModLoadingContext context) {
 		final BusGroup modBusGroup = context.getModBusGroup();
 		RegisterEvent.getBus(modBusGroup).addListener(this::onRegister);
+		// EventBus 7: a Predicate listener cancels by returning true. Vanilla opens a chest's menu
+		// before Item#useOn runs, so the binding has to happen here instead.
+		PlayerInteractEvent.RightClickBlock.BUS.addListener(
+			(Predicate<PlayerInteractEvent.RightClickBlock>) this::onRightClickBlock);
+	}
+
+	private boolean onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
+		final InteractionResult result = ContainerBinding.onUseBlock(
+			event.getEntity(), event.getLevel(), event.getHand(), event.getPos(), event.getItemStack());
+		if (result == InteractionResult.PASS) {
+			return false;
+		}
+
+		event.setCancellationResult(result);
+		return true;
 	}
 
 	private void onRegister(final RegisterEvent event) {

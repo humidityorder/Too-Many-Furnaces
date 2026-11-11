@@ -1,6 +1,8 @@
 package dev.mytechnology.toomanyfurnaces;
 
+import dev.mytechnology.toomanyfurnaces.item.ContainerBinding;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import org.slf4j.Logger;
@@ -23,6 +25,11 @@ public class TooManyFurnaces implements ModInitializer {
 		ModRegistry.registerBlockEntities((key, type) -> Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, key, type));
 		ModRegistry.registerMenus((key, menu) -> Registry.register(BuiltInRegistries.MENU, key, menu));
 		ModRegistry.registerCreativeTab((key, tab) -> Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key, tab));
+
+		// Vanilla opens a chest's menu before Item#useOn runs; this callback is fired at the very
+		// start of the right-click-block interaction on both sides, so binding wins over the GUI.
+		UseBlockCallback.EVENT.register((player, level, hand, hitResult) ->
+			ContainerBinding.onUseBlock(player, level, hand, hitResult.getBlockPos(), player.getItemInHand(hand)));
 
 		LOGGER.info("Too Many Furnaces: registered {} furnaces, {} forges and {} upgrades",
 			ModRegistry.FURNACES.size(), ModRegistry.FORGES.size(), ModRegistry.UPGRADES.size() + ModRegistry.TIER_UPGRADES.size());
