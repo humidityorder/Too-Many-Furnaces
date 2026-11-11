@@ -58,8 +58,6 @@ The three automation upgrades (Auto Input, Auto Output, Auto Input/Output) are b
 
 Double chests are handled as one 54-slot container. The `factory_upgrade` registry id is kept for save-game compatibility, but the item is now called "Auto Input/Output Upgrade".
 
-The placeholder upgrades (Energy, Generator, Color, Piping and XP Tank) have been removed entirely.
-
 ## Other blocks
 
 - **Conductor blocks** (iron / gold / netherhot): crafting ingredients for forges
